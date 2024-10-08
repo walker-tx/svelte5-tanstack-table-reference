@@ -1,38 +1,37 @@
-# create-svelte
+# Svelte 5 + TanStack Table v8 Reference
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+TanStack v8's own adapter for Svelte (`@tanstack/svelte-table`) won't work with
+Svelte 5 due to its usage of internal packages. This reference project
+demonstrates a workaround for that.
 
-## Creating a project
+TanStack Table v9 will have official support for Svelte 5, but (as of the time that this is being written) it is not yet released.
 
-If you're seeing this, you've probably already done this step. Congrats!
+# How to Use This Reference
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## The Table Implementation for Svelte 5
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+A TanStack Table implementation for Svelte 5 can be found in the
+`src/lib/table` directory. This is a copy of the work performed in [this
+PR](https://github.com/TanStack/table/pull/5403), but updated to accomodate the
+latest version of Svelte 5, and some feature requests.
 
-## Developing
+This implementation is simply a suggestion, so your implementation should meet
+your own needs.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Examples
 
-```bash
-npm run dev
+You can find examples and their docs in the `src/routes/examples` directory.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+Each example is roughly documented in a `README.md` file in its directory.
 
-## Building
+# Issues & Requests
 
-To create a production version of your app:
+## Bugs & Typos
 
-```bash
-npm run build
-```
+It's quite possible that there are issues in the way that I've implemented
+and/or documented some of the examples. If you find any, please submit an issue
+or a PR.
 
-You can preview the production build with `npm run preview`.
+## Missing Examples
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Think an example is missing? Submit a request in issues, or submit a PR.
