@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { highlightJson } from '$lib/highlight';
-	import { type UserProfile } from '$lib/services/user-profile';
+	import * as UserProfileService from '$lib/services/user-profile';
 	import FlexRender from '$lib/table/flex-render.svelte';
 	import {
 		createColumnHelper,
@@ -10,14 +10,11 @@
 		type RowSelectionState,
 		type Updater
 	} from '$lib/table/index';
-	import type { PageData } from './$types';
 	import TableCheckbox from './_components/table-checkbox.svelte';
-
-	const { data }: { data: PageData } = $props();
 
 	// Create a column helper for the user profile data.
 	// It's not necessary, but it helps with type stuff.
-	const colHelp = createColumnHelper<UserProfile>();
+	const colHelp = createColumnHelper<UserProfileService.UserProfile>();
 
 	// Define the columns using the column helper.
 	const columnDefs = [
@@ -41,11 +38,10 @@
 	];
 
 	let rowSelectionState: RowSelectionState = $state({});
-	let userData = $state(data.userData);
 
 	// Create the table.
 	const table = createSvelteTable({
-		data: userData,
+		data: UserProfileService.generate(10),
 		columns: columnDefs,
 		state: {
 			get rowSelection() {
