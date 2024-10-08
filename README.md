@@ -1,3 +1,5 @@
+[Link to Deployed Site](https://svelte5-and-tanstack-table-v8.vercel.app/)
+
 # Svelte 5 + TanStack Table v8 Reference
 
 TanStack v8's own adapter for Svelte (`@tanstack/svelte-table`) won't work with

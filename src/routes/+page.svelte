@@ -41,6 +41,7 @@
 </script>
 
 <h1>Tanstack Table v8 + Svelte 5 Reference</h1>
+<a href={PUBLIC_GITHUB_REPO_URL}>GitHub Repository</a>
 <hr />
 
 <h2>Overview</h2>
