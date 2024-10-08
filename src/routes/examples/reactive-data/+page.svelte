@@ -1,13 +1,7 @@
 <script lang="ts">
 	import * as UserService from '$lib/services/user-profile';
 	import FlexRender from '$lib/table/flex-render.svelte';
-	import {
-		createColumnHelper,
-		createSvelteTable,
-		getCoreRowModel,
-		type RowSelectionState,
-		type Updater
-	} from '$lib/table/index';
+	import { createColumnHelper, createSvelteTable, getCoreRowModel } from '$lib/table/index';
 
 	// Create a column helper for the user profile data.
 	// It's not necessary, but it helps with type stuff.
@@ -22,7 +16,6 @@
 	];
 
 	let dataState = $state(UserService.generate(10));
-	let rowSelectionState: RowSelectionState = $state({});
 
 	// Create the table.
 	const table = createSvelteTable({
@@ -31,18 +24,6 @@
 			return dataState;
 		},
 		columns: columnDefs,
-		state: {
-			get rowSelection() {
-				return rowSelectionState;
-			}
-		},
-		onRowSelectionChange: (updater: Updater<RowSelectionState>) => {
-			if (updater instanceof Function) {
-				rowSelectionState = updater(rowSelectionState);
-			} else {
-				rowSelectionState = updater;
-			}
-		},
 		getCoreRowModel: getCoreRowModel()
 	});
 

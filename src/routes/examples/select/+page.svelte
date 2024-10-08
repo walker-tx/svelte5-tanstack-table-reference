@@ -23,9 +23,7 @@
 			header: 'Select',
 			cell: ({ row }) =>
 				renderComponent(TableCheckbox, {
-					get checked() {
-						return row.getIsSelected();
-					},
+					checked: row.getIsSelected(),
 					onchange: () => {
 						row.toggleSelected();
 					}
