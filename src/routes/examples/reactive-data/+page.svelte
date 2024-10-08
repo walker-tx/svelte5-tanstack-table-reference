@@ -28,10 +28,12 @@
 	});
 
 	function prependRecord() {
+		// The data object needs to be reassigned
 		dataState = [UserService.generate(1)[0], ...dataState];
 	}
 
 	function popRecord() {
+		// The data object needs to be reassigned
 		dataState = dataState.slice(0, dataState.length - 1);
 	}
 </script>
