@@ -1,3 +1,45 @@
+<script lang="ts">
+	import { PUBLIC_GITHUB_REPO_URL } from '$env/static/public';
+	import exampleRegistry from '$lib/services/example-registry';
+	import { createSvelteTable } from '$lib/table';
+	import FlexRender from '$lib/table/flex-render.svelte';
+	import { renderSnippet } from '$lib/table/render-component';
+	import { createColumnHelper, getCoreRowModel } from '@tanstack/table-core';
+	import { createRawSnippet } from 'svelte';
+
+	const colHelp = createColumnHelper<(typeof exampleRegistry)[number]>();
+
+	const linkCell = createRawSnippet<[{ href: string; text: string }]>((props) => {
+		const { href, text } = props();
+		return {
+			render: () => `<a href="${href}">${text}</a>`
+		};
+	});
+
+	const columnDefs = [
+		colHelp.accessor('title', { header: 'Title' }),
+		colHelp.accessor('pathname', {
+			header: 'Demo',
+			cell({ cell }) {
+				return renderSnippet(linkCell, { href: cell.getValue(), text: 'Link to Demo' });
+			}
+		}),
+		colHelp.accessor('githubPath', {
+			header: 'GitHub',
+			cell({ cell }) {
+				const href = `${PUBLIC_GITHUB_REPO_URL}/tree/main/${cell.getValue()}`;
+				return renderSnippet(linkCell, { href, text: 'Link to GitHub' });
+			}
+		})
+	];
+
+	const table = createSvelteTable({
+		data: exampleRegistry,
+		columns: columnDefs,
+		getCoreRowModel: getCoreRowModel()
+	});
+</script>
+
 <h1>Tanstack Table v8 + Svelte 5 Reference</h1>
 
 <h2>Overview</h2>
@@ -17,11 +59,30 @@
 <p>This site is rudamentary on purpose.</p>
 
 <h2>Examples</h2>
-
-<ul>
-	<li><a href="/examples/basic">Basic</a></li>
-	<li><a href="/examples/select">Selection</a></li>
-</ul>
+<table>
+	<thead>
+		<tr>
+			{#each table.getHeaderGroups() as headerGroup}
+				{#each headerGroup.headers as header}
+					<th>
+						<FlexRender content={header.column.columnDef.header} context={header.getContext()} />
+					</th>
+				{/each}
+			{/each}
+		</tr>
+	</thead>
+	<tbody>
+		{#each table.getRowModel().rows as row}
+			<tr>
+				{#each row.getVisibleCells() as cell}
+					<td>
+						<FlexRender content={cell.column.columnDef.cell} context={cell.getContext()} />
+					</td>
+				{/each}
+			</tr>
+		{/each}
+	</tbody>
+</table>
 
 <h2>Questions you may have</h2>
 
@@ -35,3 +96,17 @@
 <p>
 	This applies to both <code>@tanstack/table-core</code> and <code>@tanstack/table-svelte</code>.
 </p>
+
+<style>
+	table {
+		width: 100%;
+		max-width: 960px;
+		border-collapse: collapse;
+	}
+
+	th,
+	td {
+		border: 1px solid black;
+		padding: 8px;
+	}
+</style>

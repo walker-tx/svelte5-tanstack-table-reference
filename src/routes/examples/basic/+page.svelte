@@ -23,8 +23,6 @@
 	});
 </script>
 
-<h1>Basic Table</h1>
-
 <table>
 	<thead>
 		<tr>

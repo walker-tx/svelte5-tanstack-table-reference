@@ -3,7 +3,7 @@
 	generics="TData, TValue, TContext extends HeaderContext<TData, TValue> | CellContext<TData, TValue>"
 >
 	import type { CellContext, ColumnDefTemplate, HeaderContext } from '@tanstack/table-core';
-	import { RenderComponentConfig } from './render-component';
+	import { RenderComponentConfig, RenderSnippetConfig } from './render-component';
 
 	type Props = {
 		/** The cell or header field of the current cell's column definition. */
@@ -28,6 +28,9 @@
 	{#if result instanceof RenderComponentConfig}
 		{@const { component: Component, props } = result}
 		<Component {...props} />
+	{:else if result instanceof RenderSnippetConfig}
+		{@const { snippet, params } = result}
+		{@render snippet(params)}
 	{:else}
 		{result}
 	{/if}

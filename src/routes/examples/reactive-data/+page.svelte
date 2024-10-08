@@ -1,51 +1,35 @@
 <script lang="ts">
-	import { highlightJson } from '$lib/highlight';
-	import { type UserProfile } from '$lib/services/user-profile';
+	import * as UserService from '$lib/services/user-profile';
 	import FlexRender from '$lib/table/flex-render.svelte';
 	import {
 		createColumnHelper,
 		createSvelteTable,
 		getCoreRowModel,
-		renderComponent,
 		type RowSelectionState,
 		type Updater
 	} from '$lib/table/index';
-	import type { PageData } from './$types';
-	import TableCheckbox from './_components/table-checkbox.svelte';
-
-	const { data }: { data: PageData } = $props();
 
 	// Create a column helper for the user profile data.
 	// It's not necessary, but it helps with type stuff.
-	const colHelp = createColumnHelper<UserProfile>();
+	const colHelp = createColumnHelper<UserService.UserProfile>();
 
 	// Define the columns using the column helper.
 	const columnDefs = [
-		// Add a column for selection
-		colHelp.display({
-			header: 'Select',
-			cell: ({ row }) =>
-				renderComponent(TableCheckbox, {
-					get checked() {
-						return row.getIsSelected();
-					},
-					onchange: () => {
-						row.toggleSelected();
-					}
-				})
-		}),
 		colHelp.accessor('name', { header: 'Name' }),
 		colHelp.accessor('age', { header: 'Age' }),
 		colHelp.accessor('email', { header: 'Email' }),
 		colHelp.accessor('phone', { header: 'Phone' })
 	];
 
+	let dataState = $state(UserService.generate(10));
 	let rowSelectionState: RowSelectionState = $state({});
-	let userData = $state(data.userData);
 
 	// Create the table.
 	const table = createSvelteTable({
-		data: userData,
+		// To be reactive, the data field needs to be a getter.
+		get data() {
+			return dataState;
+		},
 		columns: columnDefs,
 		state: {
 			get rowSelection() {
@@ -61,19 +45,21 @@
 		},
 		getCoreRowModel: getCoreRowModel()
 	});
+
+	function prependRecord() {
+		dataState = [UserService.generate(1)[0], ...dataState];
+	}
+
+	function popRecord() {
+		dataState = dataState.slice(0, dataState.length - 1);
+	}
 </script>
 
 <div class="actions-wrapper">
 	<h2>Actions</h2>
-	<button onclick={() => table.toggleAllRowsSelected()}>
-		{#if table.getIsAllRowsSelected()}
-			Deselect All
-		{:else}
-			Select All
-		{/if}
-	</button>
+	<button onclick={() => prependRecord()}> Prepend a Record </button>
+	<button onclick={() => popRecord()}> Pop a Record </button>
 </div>
-
 <hr />
 
 <h2>Table</h2>
@@ -102,16 +88,6 @@
 	</tbody>
 </table>
 
-<hr />
-
-<h2>Debug</h2>
-<h3>Selection State</h3>
-<div class="code-wrapper">
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	<pre><code>{@html highlightJson(JSON.stringify(table.getState().rowSelection, null, 2))}</code
-		></pre>
-</div>
-
 <style>
 	table {
 		width: 100%;
@@ -127,11 +103,5 @@
 
 	.actions-wrapper {
 		margin-bottom: 1rem;
-	}
-
-	.code-wrapper {
-		border: 1px solid black;
-		border-radius: 0.5rem;
-		padding: 0.5rem;
 	}
 </style>
