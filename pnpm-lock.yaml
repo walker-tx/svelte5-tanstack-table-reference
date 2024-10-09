@@ -56,6 +56,9 @@ importers:
       svelte-check:
         specifier: ^4.0.0
         version: 4.0.4(svelte@5.0.0-next.262)(typescript@5.6.2)
+      svelte-highlight:
+        specifier: ^7.7.0
+        version: 7.7.0
       typescript:
         specifier: ^5.0.0
         version: 5.6.2
@@ -1020,6 +1023,9 @@ packages:
     peerDependenciesMeta:
       svelte:
         optional: true
+
+  svelte-highlight@7.7.0:
+    resolution: {integrity: sha512-umBiTz3fLbbNCA+wGlRhJOb54iC6ap8S/dxjauQ+g6a8oFGTOGQeOP2rJVoh/K1ssF7IjP4P0T3Yuiu+vtaG5Q==}
 
   svelte@5.0.0-next.262:
     resolution: {integrity: sha512-gAY0POArLN5yI/ihvItG0wQCh7ycfvxSvvVlvPECshFKmR/ep6ZAlqX50+aUGDSG/5megFqnSJfP7piC6lOtew==}
@@ -2001,6 +2007,10 @@ snapshots:
       postcss-scss: 4.0.9(postcss@8.4.47)
     optionalDependencies:
       svelte: 5.0.0-next.262
+
+  svelte-highlight@7.7.0:
+    dependencies:
+      highlight.js: 11.10.0
 
   svelte@5.0.0-next.262:
     dependencies:

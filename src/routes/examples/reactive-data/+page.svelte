@@ -1,11 +1,19 @@
 <script lang="ts">
-    import * as UserService from '$lib/services/user-profile';
+    import { UserProfileService, type UserProfile } from '$lib/services/user-profile';
     import FlexRender from '$lib/table/flex-render.svelte';
     import { createColumnHelper, createSvelteTable, getCoreRowModel } from '$lib/table/index';
+    import type { PageData } from './$types';
+
+    type Props = {
+        data: PageData;
+    };
+
+    let { data }: Props = $props();
+    let { userProfiles } = data;
 
     // Create a column helper for the user profile data.
     // It's not necessary, but it helps with type stuff.
-    const colHelp = createColumnHelper<UserService.UserProfile>();
+    const colHelp = createColumnHelper<UserProfile>();
 
     // Define the columns using the column helper.
     const columnDefs = [
@@ -15,7 +23,7 @@
         colHelp.accessor('phone', { header: 'Phone' })
     ];
 
-    let dataState = $state(UserService.generate(10));
+    let dataState = $state(userProfiles);
 
     // Create the table.
     const table = createSvelteTable({
@@ -29,7 +37,7 @@
 
     function prependRecord() {
         // The data object needs to be reassigned
-        dataState = [UserService.generate(1)[0], ...dataState];
+        dataState = [UserProfileService.getOne(), ...dataState];
     }
 
     function popRecord() {
@@ -43,6 +51,7 @@
     <button onclick={() => prependRecord()}> Prepend a Record </button>
     <button onclick={() => popRecord()}> Pop a Record </button>
 </div>
+
 <hr />
 
 <h2>Table</h2>

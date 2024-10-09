@@ -1,8 +1,8 @@
 <script lang="ts">
     import { PUBLIC_GITHUB_REPO_URL } from '$env/static/public';
-    import 'highlight.js/styles/github.css';
     import type { Snippet } from 'svelte';
     import type { LayoutData } from './$types';
+    import highlightStyle from 'svelte-highlight/styles/github';
 
     type Props = {
         data: LayoutData;
@@ -12,6 +12,11 @@
     let { children, data }: Props = $props();
     const { exampleData } = data;
 </script>
+
+<svelte:head>
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+    {@html highlightStyle}
+</svelte:head>
 
 <nav>
     <div>
@@ -26,6 +31,8 @@
     <h1>{exampleData.title}</h1>
     <a href="{PUBLIC_GITHUB_REPO_URL}/tree/main/{exampleData.githubPath}">Link to GitHub</a>
 </header>
+
+<hr />
 
 {@render children()}
 

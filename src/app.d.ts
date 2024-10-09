@@ -8,6 +8,12 @@ declare global {
     // interface PageState {}
     // interface Platform {}
   }
+
+  type EmptyObject = Record<PropertyKey, never>;
+
+  type PageProps<TPageData = EmptyObject> = {
+    data: TPageData;
+  };
 }
 
 export {};

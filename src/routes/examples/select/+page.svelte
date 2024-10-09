@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { highlightJson } from '$lib/highlight';
     import * as UserProfileService from '$lib/services/user-profile';
     import FlexRender from '$lib/table/flex-render.svelte';
     import {
@@ -10,7 +9,13 @@
         type RowSelectionState,
         type Updater
     } from '$lib/table/index';
+    import Highlight from 'svelte-highlight';
+    import highlightJsonLanguage from 'svelte-highlight/languages/json';
     import TableCheckbox from './_components/table-checkbox.svelte';
+    import type { PageData } from './$types';
+
+    let { data }: PageProps<PageData> = $props();
+    const { userProfiles } = data;
 
     // Create a column helper for the user profile data.
     // It's not necessary, but it helps with type stuff.
@@ -39,7 +44,7 @@
 
     // Create the table.
     const table = createSvelteTable({
-        data: UserProfileService.generate(10),
+        data: userProfiles,
         columns: columnDefs,
         state: {
             get rowSelection() {
@@ -71,6 +76,7 @@
 <hr />
 
 <h2>Table</h2>
+
 <table>
     <thead>
         <tr>
@@ -106,10 +112,12 @@
 
 <h2>Debug</h2>
 <h3>Selection State</h3>
+
 <div class="code-wrapper">
-    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    <pre><code>{@html highlightJson(JSON.stringify(table.getState().rowSelection, null, 2))}</code
-        ></pre>
+    <Highlight
+        language={highlightJsonLanguage}
+        code={JSON.stringify(table.getState().rowSelection, null, 2)}
+    />
 </div>
 
 <style>
@@ -132,6 +140,5 @@
     .code-wrapper {
         border: 1px solid black;
         border-radius: 0.5rem;
-        padding: 0.5rem;
     }
 </style>

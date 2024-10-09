@@ -1,6 +1,10 @@
 <script lang="ts">
     import { createColumnHelper, createSvelteTable, getCoreRowModel } from '$lib/table/index';
     import * as UserService from '$lib/services/user-profile';
+    import type { PageData } from './$types';
+
+    let { data }: PageProps<PageData> = $props();
+    const { userProfiles } = data;
 
     // Create a column helper for the user profile data.
     // It's not necessary, but it helps with type stuff.
@@ -17,7 +21,7 @@
 
     // Create the table.
     const table = createSvelteTable({
-        data: UserService.generate(10),
+        data: userProfiles,
         columns: columnDefs,
         getCoreRowModel: getCoreRowModel()
     });
