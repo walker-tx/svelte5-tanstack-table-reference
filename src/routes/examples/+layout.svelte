@@ -34,7 +34,7 @@
     }
 
     nav {
-        padding: 1rem 0px;
+        padding: 1rem 0;
         border-bottom: 1px solid #ccc;
         display: flex;
         justify-content: space-between;
