@@ -1,3 +1,4 @@
+import pkg from '../../../package.json';
 import exampleRegistry from '$lib/services/example-registry';
 import type { LayoutLoad } from './$types';
 
@@ -8,5 +9,8 @@ export const load: LayoutLoad = async ({ url }) => {
     throw Error(`Example not found: ${url.pathname}`);
   }
 
-  return { exampleData };
+  return {
+    exampleData,
+    repo_url: pkg.homepage
+  };
 };

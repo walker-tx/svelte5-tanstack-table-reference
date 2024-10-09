@@ -1,11 +1,18 @@
 <script lang="ts">
-    import { PUBLIC_GITHUB_REPO_URL } from '$env/static/public';
+    import type {PageData} from './$types'
     import exampleRegistry from '$lib/services/example-registry';
     import { createSvelteTable } from '$lib/table';
     import FlexRender from '$lib/table/flex-render.svelte';
     import { renderSnippet } from '$lib/table/render-component';
     import { createColumnHelper, getCoreRowModel } from '@tanstack/table-core';
     import { createRawSnippet } from 'svelte';
+
+		type Props = {
+			data: PageData;
+		};
+
+    let { data }: Props = $props();
+    const { repo_url } = data;
 
     const colHelp = createColumnHelper<(typeof exampleRegistry)[number]>();
 
@@ -27,7 +34,7 @@
         colHelp.accessor('githubPath', {
             header: 'GitHub',
             cell({ cell }) {
-                const href = `${PUBLIC_GITHUB_REPO_URL}/tree/main/${cell.getValue()}`;
+                const href = `${repo_url}/tree/main/${cell.getValue()}`;
                 return renderSnippet(linkCell, { href, text: 'Link to GitHub' });
             }
         })
@@ -42,7 +49,7 @@
 
 <h1>Tanstack Table v8 + Svelte 5 Reference</h1>
 
-<a href={PUBLIC_GITHUB_REPO_URL}>GitHub Repository</a>
+<a href={repo_url}>GitHub Repository</a>
 
 <hr />
 
@@ -57,7 +64,7 @@
 </p>
 
 <p>
-    You can use this site and its repository on <a href={PUBLIC_GITHUB_REPO_URL}>GitHub</a> as a reference
+    You can use this site and its repository on <a href={repo_url}>GitHub</a> as a reference
     for implementing and using your own adapter.
 </p>
 
@@ -114,7 +121,7 @@
 <h3>How can I get help?</h3>
 
 <p>
-    You can ask questions by submitting an issue in the <a href={PUBLIC_GITHUB_REPO_URL}
+    You can ask questions by submitting an issue in the <a href={repo_url}
         >GitHub repository</a
     >. Please try and figure things out on your own first, though.
 </p>

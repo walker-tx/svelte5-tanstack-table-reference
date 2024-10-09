@@ -2,6 +2,7 @@
   "name": "svelte5-tanstack-table",
   "version": "0.0.1",
   "private": true,
+  "homepage": "https://github.com/walker-tx/svelte5-tanstack-table-examples",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",

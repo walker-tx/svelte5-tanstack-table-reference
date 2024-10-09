@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { PUBLIC_GITHUB_REPO_URL } from '$env/static/public';
     import 'highlight.js/styles/github.css';
     import type { Snippet } from 'svelte';
     import type { LayoutData } from './$types';
@@ -10,7 +9,7 @@
     };
 
     let { children, data }: Props = $props();
-    const { exampleData } = data;
+    const { exampleData, repo_url } = data;
 </script>
 
 <nav>
@@ -18,13 +17,13 @@
         <a href="/">Home</a>
     </div>
     <div>
-        <a href={PUBLIC_GITHUB_REPO_URL} target="_blank">GitHub Repo</a>
+        <a href={repo_url} target="_blank">GitHub Repo</a>
     </div>
 </nav>
 
 <header>
     <h1>{exampleData.title}</h1>
-    <a href="{PUBLIC_GITHUB_REPO_URL}/tree/main/{exampleData.githubPath}">Link to GitHub</a>
+    <a href="{repo_url}/tree/main/{exampleData.githubPath}">Link to GitHub</a>
 </header>
 
 {@render children()}
