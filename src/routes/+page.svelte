@@ -41,31 +41,30 @@
 </script>
 
 <h1>Tanstack Table v8 + Svelte 5 Reference</h1>
+
 <a href={PUBLIC_GITHUB_REPO_URL}>GitHub Repository</a>
+
 <hr />
 
 <h2>Overview</h2>
+
 <hr />
 
 <p>
 	The <code>@tanstack/table-svelte</code> adapter doesn't support Svelte 5 because it uses the
-	<code>internal</code> package, which is being deprecated. This project is a reference for how to implement
-	TanStack Table v8 with Svelte 5.
-</p>
-
-<p>
-	In the not-to-distant future, the official Svelte 5 adpater for TanStack Table will release
-	alongside the v9 of the TanStack Table library. As of writing this, TanStack Table v9 is still
-	under development.
+	<code>svelte/internal</code> package, which is being deprecated. This project is a reference for how
+	to implement TanStack Table v8 with Svelte 5.
 </p>
 
 <p>
 	You can use this site and its repository on <a href={PUBLIC_GITHUB_REPO_URL}>GitHub</a> as a reference
-	for implementing your own adapter.
+	for implementing and using your own adapter.
 </p>
 
 <h2>Examples</h2>
+
 <hr />
+
 <table>
 	<thead>
 		<tr>
@@ -92,6 +91,7 @@
 </table>
 
 <h2>Questions you may have</h2>
+
 <hr />
 
 <h3>Why not just use the alpha (v9) branch?</h3>
@@ -110,7 +110,7 @@
 <p>
 	You can ask questions by submitting an issue in the <a href={PUBLIC_GITHUB_REPO_URL}
 		>GitHub repository</a
-	>. Please do try and figure things out on your own first, though.
+	>. Please try and figure things out on your own first, though.
 </p>
 
 <p style="font-weight: bold;">
