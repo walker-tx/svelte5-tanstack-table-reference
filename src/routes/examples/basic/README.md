@@ -1,7 +1,4 @@
----
-title: Basic Example
-intro: This example demonstrates how to render a simple table.
----
+# Basic Example
 
 This is a basic example that renders a simple table that has no state or interactivity.
 
