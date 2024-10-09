@@ -22,7 +22,9 @@ PR](https://github.com/TanStack/table/pull/5403), but updated to accommodate the
 latest version of Svelte 5, and some feature requests. You can use the adapter
 by copying the `table` directory into your own project.
 
-The `examples` route contains examples of how to use the table implementation.
+Some documentation is available in the [`/src/lib/table` folder](./src/lib/table/README.md).
+
+The `examples` route also contains examples of how to use the table implementation.
 
 ## Examples
 
