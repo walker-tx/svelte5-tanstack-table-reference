@@ -49,7 +49,11 @@ v8.
 </script>
 ```
 
-If you want to render a component in a cell or header, you can use the `renderComponent` or `renderSnippet` functions.
+> 🔗 Link: The code abode came from the [basic
+> example](/src/routes/examples/basic).
+
+If you want to render a component in a cell or header, you can use the
+`renderComponent` or `renderSnippet` functions.
 
 ```svelte
 <script lang="ts">
@@ -81,6 +85,10 @@ If you want to render a component in a cell or header, you can use the `renderCo
   // ... define and use table
 </script>
 ```
+
+> 🔗 Link: The code abode came from the [select
+> example](/src/routes/examples/select), and the
+> [homepage](/src/routes/+page.svelte).
 
 > 📝 NOTE: `renderSnippet` will only accept a snippet that takes one argument.
 
@@ -124,6 +132,9 @@ you'll use `FlexRender`.
 </table>
 ```
 
+> 🔗 Link: The code abode came from the [select
+> example](/src/routes/examples/select).
+
 If your table only has POJO's, you don't need to use `FlexRender`:
 
 ```svelte
@@ -149,11 +160,15 @@ If your table only has POJO's, you don't need to use `FlexRender`:
 </table>
 ```
 
+> 🔗 Link: The code abode came from the [basic example](/src/routes/basic).
+
 ### State
 
-In this adapter, state is used very similarly to the SolidJS adapter since both Svelte 5 and SolidJS use signals.
+In this adapter, state is used very similarly to the SolidJS adapter since both
+Svelte 5 and SolidJS use signals.
 
-For each state that you'd like reactivity for, you'll need to create a rune, and an updater function.
+For each state that you'd like reactivity for, you'll need to create a rune, and
+an updater function.
 
 ```svelte
 <script lang="ts">
@@ -213,6 +228,9 @@ For each state that you'd like reactivity for, you'll need to create a rune, and
 
 <!-- Table markup -->
 ```
+
+> 🔗 Link: The code abode came from the [select
+> example](/src/routes/examples/select).
 
 ## Examples
 
