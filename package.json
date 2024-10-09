@@ -9,7 +9,8 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check . && eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.0.3",
@@ -24,6 +25,8 @@
     "eslint-plugin-svelte": "^2.36.0",
     "globals": "^15.0.0",
     "highlight.js": "^11.10.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.10",
     "prettier": "^3.1.1",
     "prettier-plugin-svelte": "^3.1.2",
     "svelte": "^5.0.0-next.1",
@@ -33,5 +36,9 @@
     "typescript-eslint": "^8.0.0",
     "vite": "^5.0.3"
   },
-  "type": "module"
+  "type": "module",
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
+  }
 }

@@ -1,0 +1,11 @@
+'*.ts':
+  - prettier --write --list-different
+  - eslint --fix
+'*.js':
+  - prettier --write --list-different
+  - eslint --fix
+'*.svelte':
+  - prettier --write --list-different
+  - eslint --fix
+'*.json':
+  - prettier --write --list-different
