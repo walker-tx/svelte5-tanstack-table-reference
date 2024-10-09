@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { HTMLInputAttributes } from 'svelte/elements';
+    import type { HTMLInputAttributes } from 'svelte/elements';
 
-	type Props = {} & HTMLInputAttributes;
+    type Props = {} & HTMLInputAttributes;
 
-	let { ...inputProps }: Props = $props();
+    let { ...inputProps }: Props = $props();
 </script>
 
 <input type="checkbox" {...inputProps} />
