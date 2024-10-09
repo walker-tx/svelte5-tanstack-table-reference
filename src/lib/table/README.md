@@ -25,7 +25,7 @@ v8.
     // Shape of the data
   };
 
-  // Create a column helper for the user profile data.
+  // 💡 Create a column helper for the user profile data.
   // It's not necessary, but it helps with typescript stuff.
   const colHelp = createColumnHelper<UserProfile>();
 
@@ -56,7 +56,7 @@ If you want to render a component in a cell or header, you can use the `renderCo
   import TableCheckbox from './_components/table-checkbox.svelte';
 
   const columnDefs = [
-    // 💡 Rending a component using renderComponent
+    // 💡 Rendering a component using renderComponent
     colHelp.display({
       header: 'Select',
       cell: ({ row }) =>
@@ -172,7 +172,8 @@ For each state that you'd like reactivity for, you'll need to create a rune, and
       header: 'Select',
       cell: ({ row }) =>
         renderComponent(TableCheckbox, {
-          // this should only be necessary if you're applying an initial state to the table.
+          // In this case, `row.getIsSelected()` is only needed if you're starting with an
+          // initial state.
           checked: row.getIsSelected(),
           onchange: () => {
             row.toggleSelected();

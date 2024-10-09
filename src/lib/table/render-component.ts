@@ -1,11 +1,18 @@
 import type { Component, ComponentProps, Snippet } from 'svelte';
 
 /**
- * A helper class to make it easy to identify Svelte components in `columnDef.cell` and `columnDef.header` properties.
+ * A helper class to make it easy to identify Svelte components in
+ * `columnDef.cell` and `columnDef.header` properties.
+ *
+ * > NOTE: This class should only be used internally by the adapter. If you're
+ * reading this and you don't know what this is for, you probably don't need it.
+ *
  * @example
  * ```svelte
- * {#if cell.column.columnDef.cell(cell.getContext()) instanceof RenderComponentConfig}
- *   <svelte:component this={columnDef.cell.component} {...columnDef.cell.props} />
+ * {@const result = content(context as any)}
+ * {#if result instanceof RenderComponentConfig}
+ *   {@const { component: Component, props } = result}
+ *   <Component {...props} />
  * {/if}
  * ```
  * */
@@ -17,14 +24,17 @@ export class RenderComponentConfig<TComponent extends Component> {
 }
 
 /**
- * A helper class to make it easy to identify Svelte snippets in `columnDef.cell` and `columnDef.header` properties.
+ * A helper class to make it easy to identify Svelte Snippets in `columnDef.cell` and `columnDef.header` properties.
  *
- * Snippets must take only one parameter.
+ * > NOTE: This class should only be used internally by the adapter. If you're
+ * reading this and you don't know what this is for, you probably don't need it.
  *
  * @example
  * ```svelte
- * {#if cell.column.columnDef.cell(cell.getContext()) instanceof RenderComponentConfig}
- *   <svelte:component this={columnDef.cell.component} {...columnDef.cell.props} />
+ * {@const result = content(context as any)}
+ * {#if result instanceof RenderSnippetConfig}
+ *   {@const { snippet, params } = result}
+ *   {@render snippet(params)}
  * {/if}
  * ```
  * */
