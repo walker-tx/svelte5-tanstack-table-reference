@@ -10,10 +10,10 @@ import type { Component, ComponentProps, Snippet } from 'svelte';
  * ```
  * */
 export class RenderComponentConfig<TComponent extends Component> {
-	constructor(
-		public component: TComponent,
-		public props: ComponentProps<TComponent> | Record<string, never> = {}
-	) {}
+  constructor(
+    public component: TComponent,
+    public props: ComponentProps<TComponent> | Record<string, never> = {}
+  ) {}
 }
 
 /**
@@ -29,10 +29,10 @@ export class RenderComponentConfig<TComponent extends Component> {
  * ```
  * */
 export class RenderSnippetConfig<TProps> {
-	constructor(
-		public snippet: Snippet<[TProps]>,
-		public params: TProps
-	) {}
+  constructor(
+    public snippet: Snippet<[TProps]>,
+    public params: TProps
+  ) {}
 }
 
 /**
@@ -58,8 +58,8 @@ export class RenderSnippetConfig<TProps> {
  * @see {@link https://tanstack.com/table/latest/docs/guide/column-defs}
  */
 export const renderComponent = <TComponent extends Component>(
-	component: TComponent,
-	props: ComponentProps<TComponent>
+  component: TComponent,
+  props: ComponentProps<TComponent>
 ) => new RenderComponentConfig(component, props);
 
 /**
@@ -87,4 +87,4 @@ export const renderComponent = <TComponent extends Component>(
  * @see {@link https://tanstack.com/table/latest/docs/guide/column-defs}
  */
 export const renderSnippet = <TProps>(snippet: Snippet<[TProps]>, params: TProps) =>
-	new RenderSnippetConfig(snippet, params);
+  new RenderSnippetConfig(snippet, params);

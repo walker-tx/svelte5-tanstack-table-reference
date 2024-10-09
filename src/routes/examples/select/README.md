@@ -35,16 +35,16 @@ Finally, use TanStack table's select API to interact with the selection state:
 ```ts
 // (defined before table, of course)
 const columnDefs = [
-	colHelp.display({
-		header: 'Select',
-		cell: ({ row }) =>
-			renderComponent(TableCheckbox, {
-				checked: row.getIsSelected(),
-				onchange: () => {
-					row.toggleSelected();
-				}
-			})
-	})
-	// ... more columns
+  colHelp.display({
+    header: 'Select',
+    cell: ({ row }) =>
+      renderComponent(TableCheckbox, {
+        checked: row.getIsSelected(),
+        onchange: () => {
+          row.toggleSelected();
+        }
+      })
+  })
+  // ... more columns
 ];
 ```

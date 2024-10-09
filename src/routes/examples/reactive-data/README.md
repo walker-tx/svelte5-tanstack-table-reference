@@ -12,12 +12,12 @@ Next, the `data` property of the table needs to be a getter:
 
 ```ts
 const table = createSvelteTable({
-	// 👇 Getter
-	get data() {
-		return dataState;
-	},
-	columns: columnDefs,
-	getCoreRowModel: getCoreRowModel()
+  // 👇 Getter
+  get data() {
+    return dataState;
+  },
+  columns: columnDefs,
+  getCoreRowModel: getCoreRowModel()
 });
 ```
 
@@ -25,10 +25,10 @@ Finally, you must _reassign_ the variable in order to re-render the table:
 
 ```ts
 function prependRecord(newRecord) {
-	dataState = [newRecord, ...dataState];
+  dataState = [newRecord, ...dataState];
 }
 
 function popRecord() {
-	dataState = dataState.slice(0, dataState.length - 1);
+  dataState = dataState.slice(0, dataState.length - 1);
 }
 ```
