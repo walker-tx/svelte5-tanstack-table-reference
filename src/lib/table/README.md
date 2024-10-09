@@ -102,7 +102,7 @@ you'll use `FlexRender`.
   import { FlexRender } from '$lib/flex-render';
 
   const table = createSvelteTable({
-    // ...
+    /* ... */
   });
 </script>
 
