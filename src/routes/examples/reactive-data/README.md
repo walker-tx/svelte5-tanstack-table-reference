@@ -1,4 +1,7 @@
-# Reactive Data Example
+---
+title: Reactive Data Example
+intro: This example demonstrates how to use reactive data in a Svelte component.
+---
 
 This example demonstrates how to use reactive data in a Svelte component.
 

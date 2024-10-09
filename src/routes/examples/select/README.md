@@ -1,4 +1,7 @@
-# Select Example
+---
+title: Row Selection Example
+intro: This example demonstrates how to implement row selections.
+---
 
 This example demonstrates how to implement row selections.
 
