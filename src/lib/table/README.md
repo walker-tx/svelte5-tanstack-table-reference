@@ -19,11 +19,11 @@ v8.
 
 ```svelte
 <script lang="ts">
-	import { createColumnHelper, createSvelteTable, getCoreRowModel } from '$lib/table'
+	import { createColumnHelper, createSvelteTable, getCoreRowModel } from '$lib/table';
 
-    type UserProfile = {
-        // Shape of the data
-    }
+	type UserProfile = {
+		// Shape of the data
+	};
 
 	// Create a column helper for the user profile data.
 	// It's not necessary, but it helps with typescript stuff.
@@ -40,7 +40,9 @@ v8.
 
 	// Create the table.
 	const table = createSvelteTable({
-		data: [...],
+		data: [
+			/* ... */
+		],
 		columns: columnDefs,
 		getCoreRowModel: getCoreRowModel()
 	});
@@ -155,11 +157,11 @@ For each state that you'd like reactivity for, you'll need to create a rune, and
 
 ```svelte
 <script lang="ts">
-    // ... imports
+	// ... imports
 
-    type UserProfile = {
-        // Shape of the data
-    }
+	type UserProfile = {
+		// Shape of the data
+	};
 
 	const colHelp = createColumnHelper<UserProfile>();
 
@@ -185,10 +187,12 @@ For each state that you'd like reactivity for, you'll need to create a rune, and
 
 	// Create the table.
 	const table = createSvelteTable({
-		data: [...],
+		data: [
+			/* ... */
+		],
 		columns: columnDefs,
 		state: {
-            // This needs to be a getter to keep the state reactive.
+			// This needs to be a getter to keep the state reactive.
 			get rowSelection() {
 				return rowSelectionState;
 			}
