@@ -9,10 +9,9 @@
         type RowSelectionState,
         type Updater
     } from '$lib/table/index';
-    import Highlight from 'svelte-highlight';
-    import highlightJsonLanguage from 'svelte-highlight/languages/json';
-    import TableCheckbox from './_components/table-checkbox.svelte';
     import type { PageData } from './$types';
+    import TableCheckbox from './_components/table-checkbox.svelte';
+    import { getHighlighter } from '$lib/highlighting';
 
     let { data }: PageProps<PageData> = $props();
     const { userProfiles } = data;
@@ -64,6 +63,7 @@
 
 <div>
     <h2>Actions</h2>
+    <hr />
     <button onclick={() => table.toggleAllRowsSelected()}>
         {#if table.getIsAllRowsSelected()}
             Deselect All
@@ -73,9 +73,9 @@
     </button>
 </div>
 
-<hr />
+<h2>Table Demo</h2>
 
-<h2>Table</h2>
+<hr />
 
 <table>
     <thead>
@@ -108,15 +108,25 @@
     </tbody>
 </table>
 
+<h2>Debug</h2>
+
 <hr />
 
-<h2>Debug</h2>
 <h3>Selection State</h3>
 
-<Highlight
+{#await getHighlighter()}
+    {@const jsonString = JSON.stringify(table.getState().rowSelection, null, 2)}
+    <pre><code>{jsonString}</code></pre>
+{:then highlighter}
+    {@const jsonString = JSON.stringify(table.getState().rowSelection, null, 2)}
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+    {@html highlighter(jsonString)}
+{/await}
+
+<!-- <Highlight
     language={highlightJsonLanguage}
     code={JSON.stringify(table.getState().rowSelection, null, 2)}
-/>
+/> -->
 
 <style>
     table {

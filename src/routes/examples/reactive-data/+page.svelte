@@ -48,13 +48,15 @@
 
 <div class="actions-wrapper">
     <h2>Actions</h2>
+    <hr />
     <button onclick={() => prependRecord()}> Prepend a Record </button>
     <button onclick={() => popRecord()}> Pop a Record </button>
 </div>
 
+<h2>Table Demo</h2>
+
 <hr />
 
-<h2>Table</h2>
 <table>
     <thead>
         <tr>

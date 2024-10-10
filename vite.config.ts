@@ -1,9 +1,9 @@
+import rehypeShiki from '@shikijs/rehype';
 import { sveltekit } from '@sveltejs/kit/vite';
 import rehypeSanitize from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
-import rehypeHighlight from 'rehype-highlight';
 import { unified } from 'unified';
 import { defineConfig } from 'vite';
 
@@ -12,7 +12,7 @@ async function convertMarkdownToHtml(raw: string) {
     .use(remarkParse)
     .use(remarkRehype)
     .use(rehypeSanitize)
-    .use(rehypeHighlight)
+    .use(rehypeShiki, { themes: { light: 'vitesse-light', dark: 'vitesse-dark' } })
     .use(rehypeStringify)
     .process(raw);
 

@@ -27,6 +27,10 @@
     });
 </script>
 
+<h2>Table Demo</h2>
+
+<hr />
+
 <table>
     <thead>
         <tr>

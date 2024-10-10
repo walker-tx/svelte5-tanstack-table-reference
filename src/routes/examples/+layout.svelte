@@ -2,7 +2,6 @@
     import { PUBLIC_GITHUB_REPO_URL } from '$env/static/public';
     import type { Snippet } from 'svelte';
     import type { LayoutData } from './$types';
-    import highlightStyle from 'svelte-highlight/styles/github';
 
     type Props = {
         data: LayoutData;
@@ -12,11 +11,6 @@
     let { children, data }: Props = $props();
     const { currentExample, nextExample, previousExample, readmeHtml } = $derived(data);
 </script>
-
-<svelte:head>
-    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    {@html highlightStyle}
-</svelte:head>
 
 <div class="layout-wrapper">
     <nav>
@@ -30,17 +24,16 @@
 
     <header>
         <h1>{currentExample.title}</h1>
+        <hr style="width:100%" />
         <a href="{PUBLIC_GITHUB_REPO_URL}/tree/main/{currentExample.githubPath}">Link to GitHub</a>
     </header>
-
-    <hr style="width:100%" />
 
     <div class="content-wrapper">
         {@render children()}
 
-        <hr />
+        <h2>Explanation</h2>
 
-        <h1>Explanation</h1>
+        <hr />
 
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html readmeHtml}
