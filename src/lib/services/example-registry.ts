@@ -6,6 +6,12 @@ export default [
     githubPath: 'src/routes/examples/basic'
   },
   {
+    id: 'rendering-snippets',
+    title: 'Rendering Snippets',
+    pathname: '/examples/rendering-snippets',
+    githubPath: 'src/routes/examples/rendering-snippets'
+  },
+  {
     id: 'reactive-data',
     title: 'Table with Reactive Data',
     pathname: '/examples/reactive-data',

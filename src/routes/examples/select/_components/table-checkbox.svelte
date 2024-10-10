@@ -7,5 +7,3 @@
 </script>
 
 <input type="checkbox" {...inputProps} />
-
-<style></style>

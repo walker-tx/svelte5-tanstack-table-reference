@@ -1,32 +1,114 @@
-This example demonstrates how to use reactive data in a Svelte component.
+In this guide, we'll extend your knowledge of creating a table in Svelte by
+focusing on handling reactive data.
 
-First and foremost, the variable that you're using to store your data needs to be a rune:
+Before proceeding, you should already know how to create and render a basic
+table.
 
-```ts
-let dataState = $state(generateData(10));
+### Adding Data to a `$state` Rune
+
+The first step is to make the data reactive by storing it in a `$state`. In
+Svelte 5, `$state` is a signal that allows you to track and update state changes
+in a reactive manner. This ensures that when the data changes, the table will
+automatically update to reflect those changes.
+
+```svelte
+<script lang="ts">
+  import { UserProfileService, type UserProfile } from '$lib/services/user-profile';
+
+  let { data }: Props = $props();
+  let { userProfiles } = data;
+
+  // Create a reactive state for the user profiles data using a $state rune.
+  let dataState = $state(userProfiles);
+</script>
 ```
 
-Next, the `data` property of the table needs to be a getter:
+### Creating the Table
 
-```ts
-const table = createSvelteTable({
-  // 👇 Getter
-  get data() {
-    return dataState;
-  },
-  columns: columnDefs,
-  getCoreRowModel: getCoreRowModel()
-});
+To make the table reactive, we need to pass the `data` property as a getter
+function to `createSvelteTable`. This approach ensures that the table
+dynamically responds to changes in `dataState`.
+
+```svelte
+<script lang="ts">
+  import { createColumnHelper, createSvelteTable, getCoreRowModel } from '$lib/table/index';
+
+  // Create the table.
+  const table = createSvelteTable({
+    // The data field is defined as a getter to ensure it is reactive.
+    get data() {
+      return dataState;
+    },
+    columns: columnDefs,
+    getCoreRowModel: getCoreRowModel()
+  });
+</script>
 ```
 
-Finally, you must _reassign_ the variable in order to re-render the table:
+- **Reactive Data**: By implementing the `data` property as a getter, any change
+  to `dataState` will automatically trigger the table to re-render with the
+  updated data.
+- **Benefit**: This setup makes the table's data handling straightforward and
+  automatically keeps it in sync with state changes.
 
-```ts
-function prependRecord(newRecord) {
-  dataState = [newRecord, ...dataState];
-}
+### Mutating Data
 
-function popRecord() {
-  dataState = dataState.slice(0, dataState.length - 1);
-}
+We will create two functions to modify the table data: one to add a record at
+the beginning and another to remove the last record. It's crucial to reassign
+the `dataState` variable when updating the data to ensure reactivity.
+
+```svelte
+<script lang="ts">
+  function prependRecord() {
+    dataState = [UserProfileService.getOne(), ...dataState];
+  }
+
+  function popRecord() {
+    dataState = dataState.slice(0, dataState.length - 1);
+  }
+</script>
+
+<div class="actions-wrapper">
+  <h2>Actions</h2>
+  <hr />
+  <button onclick={() => prependRecord()}> Prepend a Record </button>
+  <button onclick={() => popRecord()}> Pop a Record </button>
+</div>
+```
+
+> 🗒️ Note: The `dataState` variable must be reassigned after mutation
+> (`dataState = ...`) to ensure that the change is detected and triggers an
+> update in the UI.
+
+### Rendering the Table in the Markup
+
+Finally, we render the table using Svelte's templating syntax. Since the table
+data is reactive, it will automatically update when you modify `dataState` using
+the functions created above.
+
+```svelte
+<table>
+  <thead>
+    <tr>
+      {#each table.getHeaderGroups() as headerGroup}
+        {#each headerGroup.headers as header}
+          <th>
+            <FlexRender content={header.column.columnDef.header} context={header.getContext()} />
+          </th>
+        {/each}
+      {/each}
+    </tr>
+  </thead>
+  <tbody>
+    {#each table.getRowModel().rows as row}
+      <tr>
+        {#each row.getVisibleCells() as cell}
+          <td>
+            <FlexRender content={cell.column.columnDef.cell} context={cell.getContext()} />
+          </td>
+        {/each}
+      </tr>
+    {/each}
+  </tbody>
+</table>
 ```

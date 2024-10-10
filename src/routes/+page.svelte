@@ -1,9 +1,8 @@
 <script lang="ts">
     import { PUBLIC_GITHUB_REPO_URL } from '$env/static/public';
     import exampleRegistry from '$lib/services/example-registry';
-    import { createSvelteTable } from '$lib/table';
+    import { createSvelteTable, renderSnippet } from '$lib/table';
     import FlexRender from '$lib/table/flex-render.svelte';
-    import { renderSnippet } from '$lib/table/render-component';
     import { createColumnHelper, getCoreRowModel } from '@tanstack/table-core';
     import { createRawSnippet } from 'svelte';
 
