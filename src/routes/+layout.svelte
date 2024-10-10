@@ -1,4 +1,5 @@
 <script>
+    import './normalize.css';
     import './app.css';
 
     let { children } = $props();
@@ -13,6 +14,7 @@
         width: 100%;
         max-width: 960px;
         margin: 0px auto;
+        height: 100svh;
     }
 
     @media (max-width: 960px) {

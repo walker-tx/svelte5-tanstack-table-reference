@@ -1,5 +1,3 @@
-# Row Selection Example
-
 This example demonstrates how to implement row selections.
 
 First make a state variable that will hold the selection state:

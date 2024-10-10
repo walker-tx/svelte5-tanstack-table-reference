@@ -62,7 +62,7 @@
     });
 </script>
 
-<div class="actions-wrapper">
+<div>
     <h2>Actions</h2>
     <button onclick={() => table.toggleAllRowsSelected()}>
         {#if table.getIsAllRowsSelected()}
@@ -113,12 +113,10 @@
 <h2>Debug</h2>
 <h3>Selection State</h3>
 
-<div class="code-wrapper">
-    <Highlight
-        language={highlightJsonLanguage}
-        code={JSON.stringify(table.getState().rowSelection, null, 2)}
-    />
-</div>
+<Highlight
+    language={highlightJsonLanguage}
+    code={JSON.stringify(table.getState().rowSelection, null, 2)}
+/>
 
 <style>
     table {
@@ -131,14 +129,5 @@
     td {
         border: 1px solid black;
         padding: 8px;
-    }
-
-    .actions-wrapper {
-        margin-bottom: 1rem;
-    }
-
-    .code-wrapper {
-        border: 1px solid black;
-        border-radius: 0.5rem;
     }
 </style>

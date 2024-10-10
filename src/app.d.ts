@@ -14,6 +14,10 @@ declare global {
   type PageProps<TPageData = EmptyObject> = {
     data: TPageData;
   };
+
+  declare module '*.md' {
+    export default string;
+  }
 }
 
 export {};

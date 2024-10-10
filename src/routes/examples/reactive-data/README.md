@@ -1,5 +1,3 @@
-# Reactive Data Example
-
 This example demonstrates how to use reactive data in a Svelte component.
 
 First and foremost, the variable that you're using to store your data needs to be a rune:
