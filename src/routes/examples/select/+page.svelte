@@ -1,4 +1,5 @@
 <script lang="ts">
+    import Highlight from '$lib/components/highlight.svelte';
     import * as UserProfileService from '$lib/services/user-profile';
     import FlexRender from '$lib/table/flex-render.svelte';
     import {
@@ -11,7 +12,6 @@
     } from '$lib/table/index';
     import type { PageData } from './$types';
     import TableCheckbox from './_components/table-checkbox.svelte';
-    import { getHighlighter } from '$lib/highlighting';
 
     let { data }: PageProps<PageData> = $props();
     const { userProfiles } = data;
@@ -114,30 +114,4 @@
 
 <h3>Selection State</h3>
 
-{#await getHighlighter()}
-    {@const jsonString = JSON.stringify(table.getState().rowSelection, null, 2)}
-    <pre><code>{jsonString}</code></pre>
-{:then highlighter}
-    {@const jsonString = JSON.stringify(table.getState().rowSelection, null, 2)}
-    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    {@html highlighter(jsonString)}
-{/await}
-
-<!-- <Highlight
-    language={highlightJsonLanguage}
-    code={JSON.stringify(table.getState().rowSelection, null, 2)}
-/> -->
-
-<style>
-    table {
-        width: 100%;
-        max-width: 960px;
-        border-collapse: collapse;
-    }
-
-    th,
-    td {
-        border: 1px solid black;
-        padding: 8px;
-    }
-</style>
+<Highlight lang={'json'} code={JSON.stringify(rowSelectionState, null, 2)} />

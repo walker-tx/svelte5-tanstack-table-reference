@@ -65,7 +65,7 @@
 
 <hr />
 
-<table>
+<table class="examples-table">
     <thead>
         <tr>
             {#each table.getHeaderGroups() as headerGroup}
@@ -126,18 +126,6 @@
 </p>
 
 <style>
-    table {
-        width: 100%;
-        max-width: 960px;
-        border-collapse: collapse;
-    }
-
-    th,
-    td {
-        border: 1px solid black;
-        padding: 8px;
-    }
-
     h2 {
         margin-top: 2rem;
     }

@@ -6,13 +6,14 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import { defineConfig } from 'vite';
+import { themes } from './src/lib/highlight';
 
 async function convertMarkdownToHtml(raw: string) {
   const file = await unified()
     .use(remarkParse)
     .use(remarkRehype)
     .use(rehypeSanitize)
-    .use(rehypeShiki, { themes: { light: 'vitesse-light', dark: 'vitesse-dark' } })
+    .use(rehypeShiki, { themes })
     .use(rehypeStringify)
     .process(raw);
 
