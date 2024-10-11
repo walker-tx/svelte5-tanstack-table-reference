@@ -1,20 +1,14 @@
 <script>
-    import { ModeWatcher, mode } from 'mode-watcher';
+    import { ModeWatcher } from 'mode-watcher';
+    import { browser } from '$app/environment';
+    import './app.css';
 
     let { children } = $props();
 </script>
 
-<ModeWatcher />
-
-<svelte:head>
-    <link rel="stylesheet" href="/normalize.css" type="text/css" />
-    <link rel="stylesheet" href="/shiki.css" type="text/css" />
-    {#if $mode === 'dark'}
-        <link rel="stylesheet" href="/sakura-dark.css" type="text/css" />
-    {:else}
-        <link rel="stylesheet" href="/sakura.css" type="text/css" />
-    {/if}
-</svelte:head>
+{#if browser}
+    <ModeWatcher />
+{/if}
 
 <main class="wrapper">
     {@render children()}

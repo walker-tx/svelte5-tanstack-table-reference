@@ -2,34 +2,67 @@
  * ================
  * Minimal css theme.
  * Project: https://github.com/oxalorg/sakura/
+ * 
+ * This has been adapted to use CSS variables for theming.
  */
+
+/* Theme Setup */
+:root {
+  --color-blossom: #1d7484;
+  --color-fade: #982c61;
+  --color-bg: #f9f9f9;
+  --color-bg-alt: #f1f1f1;
+  --color-text: #4a4a4a;
+  --font-size-base: 1.8rem;
+  --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+  --font-family-heading: var(--font-family-base);
+}
+
+:root.dark {
+  --color-blossom: #ffffff;
+  --color-fade: #c9c9c9;
+  --color-bg: #222222;
+  --color-bg-alt: #4a4a4a;
+  --color-text: #c9c9c9;
+  --font-size-base: 1.8rem;
+}
+
 /* Body */
 html {
   font-size: 62.5%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    'Noto Sans', sans-serif;
+  font-family: var(--font-family-base);
 }
 
 body {
-  font-size: 1.8rem;
+  font-size: var(--font-size-base);
   line-height: 1.618;
   max-width: 54em;
   margin: auto;
-  color: #4a4a4a;
-  background-color: #f9f9f9;
+  color: var(--color-text);
+  background-color: var(--color-bg);
   padding: 13px;
 }
 
 @media (max-width: 684px) {
   body {
-    font-size: 1.53rem;
+    font-size: calc(var(--font-size-base) * 0.85);
   }
 }
+
 @media (max-width: 382px) {
   body {
-    font-size: 1.35rem;
+    font-size: calc(var(--font-size-base) * 0.75);
   }
 }
+
+@mixin word-wrap() {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+}
+
 h1,
 h2,
 h3,
@@ -37,37 +70,28 @@ h4,
 h5,
 h6 {
   line-height: 1.1;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    'Noto Sans', sans-serif;
+  font-family: var(--font-family-heading);
   font-weight: 700;
   margin-top: 3rem;
   margin-bottom: 1.5rem;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  -ms-word-break: break-all;
-  word-break: break-word;
+  @include word-wrap;
 }
 
 h1 {
   font-size: 2.35em;
 }
-
 h2 {
   font-size: 2em;
 }
-
 h3 {
   font-size: 1.75em;
 }
-
 h4 {
   font-size: 1.5em;
 }
-
 h5 {
   font-size: 1.25em;
 }
-
 h6 {
   font-size: 1em;
 }
@@ -84,19 +108,21 @@ sup {
 }
 
 hr {
-  border-color: #1d7484;
+  border-color: var(--color-blossom);
 }
 
 a {
-  text-decoration: underline;
-  color: #1d7484;
-}
-a:visited {
-  color: #144f5a;
-}
-a:hover {
-  color: #982c61;
-  border-bottom: 2px solid #4a4a4a;
+  text-decoration: none;
+  color: var(--color-blossom);
+
+  &:visited {
+    color: darken(var(--color-blossom), 10%);
+  }
+
+  &:hover {
+    color: var(--color-fade);
+    border-bottom: 2px solid var(--color-text);
+  }
 }
 
 ul {
@@ -116,9 +142,9 @@ blockquote {
   padding-top: 0.8em;
   padding-bottom: 0.8em;
   padding-right: 0.8em;
-  border-left: 5px solid #1d7484;
+  border-left: 5px solid var(--color-blossom);
   margin-bottom: 2.5rem;
-  background-color: #f1f1f1;
+  background-color: var(--color-bg-alt);
 }
 
 blockquote p {
@@ -134,8 +160,9 @@ video {
 }
 
 /* Pre and Code */
+
 pre {
-  background-color: #f1f1f1;
+  background-color: var(--color-bg-alt);
   display: block;
   padding: 1em;
   overflow-x: auto;
@@ -149,7 +176,7 @@ kbd,
 samp {
   font-size: 0.9em;
   padding: 0 0.5em;
-  background-color: #f1f1f1;
+  background-color: var(--color-bg-alt);
   white-space: pre-wrap;
 }
 
@@ -161,28 +188,30 @@ pre > code {
 }
 
 /* Tables */
+
 table {
   text-align: justify;
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 2rem;
-  border: 1px solid #1d7484;
+  border: 1px solid var(--color-blossom);
 }
 
 td,
 th {
   padding: 0.5em;
-  border: 1px solid #1d7484;
+  border: 1px solid var(--color-blossom);
 }
 
 /* Buttons, forms and input */
+
 input,
 textarea {
-  border: 1px solid #4a4a4a;
-}
-input:focus,
-textarea:focus {
-  border: 1px solid #1d7484;
+  border: 1px solid var(--color-text);
+
+  &:focus {
+    border: 1px solid var(--color-blossom);
+  }
 }
 
 textarea {
@@ -200,63 +229,51 @@ input[type='file']::file-selector-button {
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
-  background-color: #1d7484;
-  color: #f9f9f9;
+
+  background-color: var(--color-blossom);
+  color: var(--color-bg);
   border-radius: 1px;
-  border: 1px solid #1d7484;
+  border: 1px solid var(--color-blossom);
   cursor: pointer;
   box-sizing: border-box;
-}
-.button[disabled],
-button[disabled],
-input[type='submit'][disabled],
-input[type='reset'][disabled],
-input[type='button'][disabled],
-input[type='file']::file-selector-button[disabled] {
-  cursor: default;
-  opacity: 0.5;
-}
-.button:hover,
-button:hover,
-input[type='submit']:hover,
-input[type='reset']:hover,
-input[type='button']:hover,
-input[type='file']::file-selector-button:hover {
-  background-color: #982c61;
-  color: #f9f9f9;
-  outline: 0;
-}
-.button:focus-visible,
-button:focus-visible,
-input[type='submit']:focus-visible,
-input[type='reset']:focus-visible,
-input[type='button']:focus-visible,
-input[type='file']::file-selector-button:focus-visible {
-  outline-style: solid;
-  outline-width: 2px;
+
+  &[disabled] {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  &:hover {
+    background-color: var(--color-fade);
+    color: var(--color-bg);
+    outline: 0;
+  }
+
+  &:focus-visible {
+    outline-style: solid;
+    outline-width: 2px;
+  }
 }
 
 textarea,
 select,
 input {
-  color: #4a4a4a;
+  color: var(--color-text);
   padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
   margin-bottom: 10px;
-  background-color: #f1f1f1;
-  border: 1px solid #f1f1f1;
+  background-color: var(--color-bg-alt);
+  border: 1px solid var(--color-bg-alt);
   border-radius: 4px;
   box-shadow: none;
   box-sizing: border-box;
-}
-textarea:focus,
-select:focus,
-input:focus {
-  border: 1px solid #1d7484;
-  outline: 0;
+
+  &:focus {
+    border: 1px solid var(--color-blossom);
+    outline: 0;
+  }
 }
 
 input[type='checkbox']:focus {
-  outline: 1px dotted #1d7484;
+  outline: 1px dotted var(--color-blossom);
 }
 
 label,
