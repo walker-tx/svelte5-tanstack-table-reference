@@ -1,6 +1,9 @@
 <script>
     import { ModeWatcher } from 'mode-watcher';
     import { browser } from '$app/environment';
+    import '../styles/normalize.css';
+    import '../styles/sakura.css';
+    import '../styles/shiki.css';
     import './app.css';
 
     let { children } = $props();
