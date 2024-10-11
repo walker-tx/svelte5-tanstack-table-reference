@@ -56,7 +56,7 @@ definitions:
 ```svelte
 <script lang="ts">
   import { createRawSnippet } from 'svelte';
-  import { createColumnHelper } from '$lib/table/index'; // [!code ++]
+  import { createColumnHelper } from '$lib/table'; // [!code ++]
   import { type UserProfile } from '$lib/services/user-profile'; // [!code ++]
 
   const mailtoSnippet = createRawSnippet<[string]>((email) => { 
@@ -103,8 +103,9 @@ specified data, columns, and core row model.
 
 ```svelte
 <script lang="ts">
-  import { createRawSnippet } from 'svelte';
-  import { createColumnHelper } from '$lib/table/index';
+  import { createRawSnippet } from 'svelte'; 
+  import { createColumnHelper } from '$lib/table'; // [!code --]
+  import { createColumnHelper, createSvelteTable, getCoreRowModel } from '$lib/table'; // [!code ++]
   import { type UserProfile } from '$lib/services/user-profile'; // [!code --]
   import { type UserProfile, userProfiles } from '$lib/services/user-profile'; // [!code ++]
 

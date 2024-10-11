@@ -11,7 +11,7 @@ easier to maintain.
 
 ```svelte
 <script lang="ts">
-  import { createColumnHelper } from '$lib/table/index';
+  import { createColumnHelper } from '$lib/table';
   import { type UserProfile } from '$lib/services/user-profile';
 
   const colHelp = createColumnHelper<UserProfile>();
@@ -26,7 +26,7 @@ column is associated with a specific field from the data and has a header label.
 <!-- prettier-ignore-start -->
 ```svelte
 <script lang="ts">
-  import { createColumnHelper } from '$lib/table/index'; // [!code ++]
+  import { createColumnHelper } from '$lib/table'; // [!code ++]
   import { type UserProfile } from '$lib/services/user-profile';
 
   const colHelp = createColumnHelper<UserProfile>();
@@ -58,9 +58,9 @@ specified data, columns, and core row model.
 <!-- prettier-ignore-start -->
 ```svelte
 <script lang="ts">
-  import { createColumnHelper } from '$lib/table/index'; // [!code --]
+  import { createColumnHelper } from '$lib/table'; // [!code --]
+  import { createColumnHelper, createSvelteTable, getCoreRowModel } from '$lib/table'; // [!code ++]
   import { type UserProfile } from '$lib/services/user-profile'; // [!code --]
-  import { createSvelteTable, getCoreRowModel } from '$lib/table'; // [!code ++]
   import { type UserProfile, userProfiles } from '$lib/services/user-profile'; // [!code ++]
 
   const colHelp = createColumnHelper<UserProfile>();
