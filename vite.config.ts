@@ -7,13 +7,17 @@ import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import { defineConfig } from 'vite';
 import { themes } from './src/lib/highlight';
+import { transformerNotationDiff } from '@shikijs/transformers';
 
 async function convertMarkdownToHtml(raw: string) {
   const file = await unified()
     .use(remarkParse)
     .use(remarkRehype)
     .use(rehypeSanitize)
-    .use(rehypeShiki, { themes })
+    .use(rehypeShiki, {
+      themes,
+      transformers: [transformerNotationDiff()]
+    })
     .use(rehypeStringify)
     .process(raw);
 

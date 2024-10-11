@@ -52,12 +52,70 @@ customize the cell content.
 Here's an example of how we use `renderSnippet` with our snippets in the column
 definitions:
 
+<!-- prettier-ignore-start -->
 ```svelte
 <script lang="ts">
-  import { createColumnHelper } from '$lib/table/index';
-  import * as UserService from '$lib/services/user-profile';
+  import { createRawSnippet } from 'svelte';
+  import { createColumnHelper } from '$lib/table/index'; // [!code ++]
+  import { type UserProfile } from '$lib/services/user-profile'; // [!code ++]
 
-  const colHelp = createColumnHelper<UserService.UserProfile>();
+  const mailtoSnippet = createRawSnippet<[string]>((email) => { 
+    const emailAddress = email(); 
+    return { 
+      render: () => `<a href="mailto:${emailAddress}">${emailAddress}</a>` 
+    }; 
+  }); 
+
+  const colHelp = createColumnHelper<UserProfile>(); // [!code ++]
+
+  const columnDefs = [ // [!code ++]
+    // Column def using snippet from markup 
+    colHelp.accessor('name', { // [!code ++]
+      header: 'Name', // [!code ++]
+      cell: ({ cell }) => renderSnippet(strongSnippet, cell.getValue()) // [!code ++]
+    }), // [!code ++]
+    colHelp.accessor('age', { header: 'Age' }), // [!code ++]
+    // Column def using snippet from above 
+    colHelp.accessor('email', { // [!code ++]
+      header: 'Email', // [!code ++]
+      cell: ({ cell }) => renderSnippet(mailtoSnippet, cell.getValue()) // [!code ++]
+    }), // [!code ++]
+    colHelp.accessor('phone', { header: 'Phone' }) // [!code ++]
+  ]; // [!code ++]
+</script>
+
+{#snippet strongSnippet(content: string)}
+  <strong>{content}</strong>
+{/snippet}
+```
+<!-- prettier-ignore-end -->
+
+> 🗒️ NOTE: You can also use `renderSnippet` with the `header` field of each
+> column.
+
+### Setting Up the Table
+
+After defining the columns, the next step is to set up the table using the
+`createSvelteTable` function. This function initializes the table with the
+specified data, columns, and core row model.
+
+<!-- prettier-ignore-start -->
+
+```svelte
+<script lang="ts">
+  import { createRawSnippet } from 'svelte';
+  import { createColumnHelper } from '$lib/table/index';
+  import { type UserProfile } from '$lib/services/user-profile'; // [!code --]
+  import { type UserProfile, userProfiles } from '$lib/services/user-profile'; // [!code ++]
+
+  const mailtoSnippet = createRawSnippet<[string]>((email) => {
+    const emailAddress = email();
+    return {
+      render: () => `<a href="mailto:${emailAddress}">${emailAddress}</a>`
+    };
+  });
+
+  const colHelp = createColumnHelper<UserProfile>();
 
   const columnDefs = [
     colHelp.accessor('name', {
@@ -71,11 +129,19 @@ definitions:
     }),
     colHelp.accessor('phone', { header: 'Phone' })
   ];
-</script>
-```
 
-> 🗒️ NOTE: You can also use `renderSnippet` with the `header` field of each
-> column.
+  const table = createSvelteTable({ // [!code ++]
+    data: userProfiles, // [!code ++]
+    columns: columnDefs, // [!code ++]
+    getCoreRowModel: getCoreRowModel() // [!code ++]
+  }); // [!code ++]
+</script>
+
+{#snippet strongSnippet(content: string)}
+  <strong>{content}</strong>
+{/snippet}
+```
+<!-- prettier-ignore-end -->
 
 ### Rendering the Table
 

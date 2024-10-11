@@ -12,9 +12,9 @@ easier to maintain.
 ```svelte
 <script lang="ts">
   import { createColumnHelper } from '$lib/table/index';
-  import * as UserService from '$lib/services/user-profile';
+  import { type UserProfile } from '$lib/services/user-profile';
 
-  const colHelp = createColumnHelper<UserService.UserProfile>();
+  const colHelp = createColumnHelper<UserProfile>();
 </script>
 ```
 
@@ -23,17 +23,22 @@ easier to maintain.
 Using the column helper, we define the columns that our table will display. Each
 column is associated with a specific field from the data and has a header label.
 
+<!-- prettier-ignore-start -->
 ```svelte
 <script lang="ts">
-  // Define the columns using the column helper.
-  const columnDefs = [
-    colHelp.accessor('name', { header: 'Name' }),
-    colHelp.accessor('age', { header: 'Age' }),
-    colHelp.accessor('email', { header: 'Email' }),
-    colHelp.accessor('phone', { header: 'Phone' })
-  ];
+  import { createColumnHelper } from '$lib/table/index'; // [!code ++]
+  import { type UserProfile } from '$lib/services/user-profile';
+
+  const colHelp = createColumnHelper<UserProfile>();
+
+  const columnDefs = [ // [!code ++]
+    colHelp.accessor('age', { header: 'Age' }), // [!code ++]
+    colHelp.accessor('email', { header: 'Email' }), // [!code ++]
+    colHelp.accessor('phone', { header: 'Phone' }) // [!code ++]
+  ]; // [!code ++]
 </script>
 ```
+<!-- prettier-ignore-end -->
 
 - **Field Access**: The first argument to each `accessor` method specifies the
   field to extract from each data record (e.g., `name`, `age`, `email`, and
@@ -50,18 +55,30 @@ After defining the columns, the next step is to set up the table using the
 `createSvelteTable` function. This function initializes the table with the
 specified data, columns, and core row model.
 
+<!-- prettier-ignore-start -->
 ```svelte
 <script lang="ts">
-  import { createSvelteTable, getCoreRowModel } from '$lib/table';
+  import { createColumnHelper } from '$lib/table/index'; // [!code --]
+  import { type UserProfile } from '$lib/services/user-profile'; // [!code --]
+  import { createSvelteTable, getCoreRowModel } from '$lib/table'; // [!code ++]
+  import { type UserProfile, userProfiles } from '$lib/services/user-profile'; // [!code ++]
 
-  // Create the table using the data and column definitions.
-  const table = createSvelteTable({
-    data: userProfiles,
-    columns: columnDefs,
-    getCoreRowModel: getCoreRowModel()
-  });
+  const colHelp = createColumnHelper<UserProfile>();
+
+  const columnDefs = [
+      colHelp.accessor('age', { header: 'Age' }),
+    colHelp.accessor('email', { header: 'Email' }),
+    colHelp.accessor('phone', { header: 'Phone' })
+  ];
+
+  const table = createSvelteTable({ // [!code ++]
+    data: userProfiles, // [!code ++]
+    columns: columnDefs, // [!code ++]
+    getCoreRowModel: getCoreRowModel() // [!code ++]
+  }); // [!code ++]
 </script>
 ```
+<!-- prettier-ignore-end -->
 
 For more information on row models, refer to the [Row Model
 Documentation](https://tanstack.com/table/latest/docs/guide/row-models).
