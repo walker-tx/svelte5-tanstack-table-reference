@@ -4,7 +4,7 @@ creating a checkbox wrapper component, defining the columns with a selection
 column, setting up a reactive state for row selection, and ensuring that the
 table responds to selection changes.
 
-You should already know how to make a basic table before proceeding.
+**You should already know how to make a basic table before proceeding.**
 
 > 🗒️ Note: This process works for all kinds of table state.
 
@@ -26,12 +26,6 @@ This component will handle the checkbox rendering for each row in the table.
 <input type="checkbox" {...inputProps} />
 ```
 
-- **Purpose**: The checkbox component allows us to easily bind the checkbox
-  state (checked/unchecked) to the table's row selection state.
-- **Flexible Input Properties**: We use the spread operator (`{...inputProps}`)
-  to pass any properties dynamically, making it adaptable to different use
-  cases.
-
 ### Creating a Selection Column
 
 Next, we define the table columns using a column helper, with a specific focus
@@ -40,11 +34,12 @@ on adding a selection column that uses the `TableCheckbox` component.
 ```svelte
 <!-- +page.svelte -->
 <script lang="ts">
-  import { createColumnHelper, renderComponent } from '$lib/table/index';
+  import { createColumnHelper, renderComponent } from '$lib/table';
   import TableCheckbox from './_components/table-checkbox.svelte';
+  import { type UserProfile } from '$lib/services/user-profile';
 
   // Create a column helper for the user profile data.
-  const colHelp = createColumnHelper<UserProfileService.UserProfile>();
+  const colHelp = createColumnHelper<UserProfile>();
 
   // Define the columns including a column for row selection.
   const columnDefs = [
@@ -77,10 +72,32 @@ reactive signal that tracks which rows are selected.
 
 ```svelte
 <script lang="ts">
-  import { type RowSelectionState } from '$lib/table/index';
+  import { type RowSelectionState } from '$lib/table'; // [!code --]
+  import { type RowSelectionState, createColumnHelper, renderComponent } from '$lib/table'; // [!code ++]
+  import TableCheckbox from './_components/table-checkbox.svelte';
+  import { type UserProfile } from '$lib/services/user-profile';
+
+  const colHelp = createColumnHelper<UserProfile>();
+
+  const columnDefs = [
+    colHelp.display({
+      header: 'Select',
+      cell: ({ row }) =>
+        renderComponent(TableCheckbox, {
+          checked: row.getIsSelected(),
+          onchange: () => {
+            row.toggleSelected();
+          }
+        })
+    }),
+    colHelp.accessor('name', { header: 'Name' }),
+    colHelp.accessor('age', { header: 'Age' }),
+    colHelp.accessor('email', { header: 'Email' }),
+    colHelp.accessor('phone', { header: 'Phone' })
+  ];
 
   // Define a reactive state to track the row selection state.
-  let rowSelectionState: RowSelectionState = $state({});
+  let rowSelectionState: RowSelectionState = $state({}); // [!code ++]
 </script>
 ```
 
@@ -89,20 +106,51 @@ reactive signal that tracks which rows are selected.
 To handle changes in the row selection state, we define an updater function.
 This function will be called whenever a row's selection state changes.
 
+<!-- prettier-ignore-start -->
 ```svelte
 <script lang="ts">
-  import { type Updater } from '$lib/table/index';
+  import { type RowSelectionState, createColumnHelper, renderComponent } from '$lib/table'; // [!code --]
+  import { // [!code ++]
+    type RowSelectionState, // [!code ++]
+    type Updater, // [!code ++]
+    createColumnHelper, // [!code ++]
+    renderComponent // [!code ++]
+  } from '$lib/table'; // [!code ++]
+  import TableCheckbox from './_components/table-checkbox.svelte';
+  import { type UserProfile } from '$lib/services/user-profile';
 
-  function onRowSelectionChange(updater: Updater<RowSelectionState>) {
-    // Update the selection state by reassigning the $state
-    if (updater instanceof Function) {
-      rowSelectionState = updater(rowSelectionState);
-    } else {
-      rowSelectionState = updater;
-    }
-  }
+  const colHelp = createColumnHelper<UserProfile>();
+
+  const columnDefs = [
+    colHelp.display({
+      header: 'Select',
+      cell: ({ row }) =>
+        renderComponent(TableCheckbox, {
+          checked: row.getIsSelected(),
+          onchange: () => {
+            row.toggleSelected();
+          }
+        })
+    }),
+    colHelp.accessor('name', { header: 'Name' }),
+    colHelp.accessor('age', { header: 'Age' }),
+    colHelp.accessor('email', { header: 'Email' }),
+    colHelp.accessor('phone', { header: 'Phone' })
+  ];
+
+  let rowSelectionState: RowSelectionState = $state({});
+
+  function onRowSelectionChange(updater: Updater<RowSelectionState>) { // [!code ++]
+    // Update the selection state by reassigning the $state // [!code ++]
+    if (updater instanceof Function) { // [!code ++]
+      rowSelectionState = updater(rowSelectionState); // [!code ++]
+    } else { // [!code ++]
+      rowSelectionState = updater; // [!code ++]
+    } // [!code ++]
+  } // [!code ++]
 </script>
 ```
+<!-- prettier-ignore-end -->
 
 - **State Update**: The updater function modifies the `rowSelectionState`,
   ensuring that the state rune and the table itself are synchronized.
@@ -117,20 +165,60 @@ selection state changes.
 
 ```svelte
 <script lang="ts">
-  import { createSvelteTable, getCoreRowModel } from '$lib/table/index';
+  import {
+    type RowSelectionState,
+    type Updater,
+    createColumnHelper,
+    renderComponent // [!code --]
+    renderComponent, // [!code ++]
+    createSvelteTable, // [!code ++]
+    getCoreRowModel // [!code ++]
+  } from '$lib/table';
+  import TableCheckbox from './_components/table-checkbox.svelte';
+  import { type UserProfile } from '$lib/services/user-profile'; // [!code --]
+  import { type UserProfile, userProfiles } from '$lib/services/user-profile'; // [!code ++]
+
+  const colHelp = createColumnHelper<UserProfile>();
+
+  const columnDefs = [
+    colHelp.display({
+      header: 'Select',
+      cell: ({ row }) =>
+        renderComponent(TableCheckbox, {
+          checked: row.getIsSelected(),
+          onchange: () => {
+            row.toggleSelected();
+          }
+        })
+    }),
+    colHelp.accessor('name', { header: 'Name' }),
+    colHelp.accessor('age', { header: 'Age' }),
+    colHelp.accessor('email', { header: 'Email' }),
+    colHelp.accessor('phone', { header: 'Phone' })
+  ];
+
+  let rowSelectionState: RowSelectionState = $state({});
+
+  function onRowSelectionChange(updater: Updater<RowSelectionState>) {
+    if (updater instanceof Function) {
+      rowSelectionState = updater(rowSelectionState);
+    } else {
+      rowSelectionState = updater;
+    }
+  }
 
   // Create the table and bind the row selection state using a getter.
-  const table = createSvelteTable({
-    data: userProfiles,
-    columns: columnDefs,
-    state: {
-      get rowSelection() {
-        return rowSelectionState;
-      }
-    },
-    onRowSelectionChange: onRowSelectionChange,
-    getCoreRowModel: getCoreRowModel()
-  });
+  const table = createSvelteTable({ // [!code ++]
+    data: userProfiles, // [!code ++]
+    columns: columnDefs, // [!code ++]
+    state: { // [!code ++]
+      get rowSelection() { // [!code ++]
+        return rowSelectionState; // [!code ++]
+      } // [!code ++]
+    }, // [!code ++]
+    onRowSelectionChange: onRowSelectionChange, // [!code ++]
+    getCoreRowModel: getCoreRowModel() // [!code ++]
+  }); // [!code ++]
 </script>
 ```
 

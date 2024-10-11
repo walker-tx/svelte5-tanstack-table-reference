@@ -1,8 +1,8 @@
 In this guide, we'll extend your knowledge of creating a table in Svelte by
 focusing on handling reactive data.
 
-Before proceeding, you should already know how to create and render a basic
-table.
+**Before proceeding, you should already know how to create and render a basic
+table.**
 
 ### Adding Data to a `$state` Rune
 
@@ -13,7 +13,9 @@ automatically update to reflect those changes.
 
 ```svelte
 <script lang="ts">
-  import { UserProfileService, type UserProfile } from '$lib/services/user-profile';
+  type Props = {
+    data: PageData;
+  };
 
   let { data }: Props = $props();
   let { userProfiles } = data;
@@ -29,21 +31,41 @@ To make the table reactive, we need to pass the `data` property as a getter
 function to `createSvelteTable`. This approach ensures that the table
 dynamically responds to changes in `dataState`.
 
+<!-- prettier-ignore-start -->
 ```svelte
 <script lang="ts">
-  import { createColumnHelper, createSvelteTable, getCoreRowModel } from '$lib/table/index';
+  import { type UserProfile } from '$lib/services/user-profile'; // [!code ++]
+  import { createColumnHelper, createSvelteTable, getCoreRowModel } from '$lib/table'; // [!code ++]
 
-  // Create the table.
-  const table = createSvelteTable({
+  type Props = {
+    data: PageData;
+  };
+
+  let { data }: Props = $props();
+  let { userProfiles } = data;
+
+  let dataState = $state(userProfiles);
+
+  const colHelp = createColumnHelper<UserProfile>(); // [!code ++]
+
+  const columnDefs = [ // [!code ++]
+    colHelp.accessor('name', { header: 'Name' }), // [!code ++]
+    colHelp.accessor('age', { header: 'Age' }), // [!code ++]
+    colHelp.accessor('email', { header: 'Email' }), // [!code ++]
+    colHelp.accessor('phone', { header: 'Phone' }) // [!code ++]
+  ]; // [!code ++]
+
+  const table = createSvelteTable({ // [!code ++]
     // The data field is defined as a getter to ensure it is reactive.
-    get data() {
-      return dataState;
-    },
-    columns: columnDefs,
-    getCoreRowModel: getCoreRowModel()
-  });
+    get data() { // [!code ++]
+      return dataState; // [!code ++]
+    }, // [!code ++]
+    columns: columnDefs, // [!code ++]
+    getCoreRowModel: getCoreRowModel() // [!code ++]
+  }); // [!code ++]
 </script>
 ```
+<!-- prettier-ignore-end -->
 
 - **Reactive Data**: By implementing the `data` property as a getter, any change
   to `dataState` will automatically trigger the table to re-render with the
@@ -57,24 +79,55 @@ We will create two functions to modify the table data: one to add a record at
 the beginning and another to remove the last record. It's crucial to reassign
 the `dataState` variable when updating the data to ensure reactivity.
 
+<!-- prettier-ignore-start -->
 ```svelte
 <script lang="ts">
-  function prependRecord() {
-    dataState = [UserProfileService.getOne(), ...dataState];
-  }
+  import { type UserProfile } from '$lib/services/user-profile';
+  import { createColumnHelper, createSvelteTable, getCoreRowModel } from '$lib/table';
 
-  function popRecord() {
-    dataState = dataState.slice(0, dataState.length - 1);
-  }
+  type Props = {
+    data: PageData;
+  };
+
+  let { data }: Props = $props();
+  let { userProfiles } = data;
+
+  let dataState = $state(userProfiles);
+
+  const colHelp = createColumnHelper<UserProfile>();
+
+  const columnDefs = [
+    colHelp.accessor('name', { header: 'Name' }),
+    colHelp.accessor('age', { header: 'Age' }),
+    colHelp.accessor('email', { header: 'Email' }),
+    colHelp.accessor('phone', { header: 'Phone' })
+  ];
+
+  const table = createSvelteTable({
+    get data() {
+      return dataState;
+    },
+    columns: columnDefs,
+    getCoreRowModel: getCoreRowModel()
+  });
+
+  function prependRecord() { // [!code ++]
+    dataState = [UserProfileService.getOne(), ...dataState]; // [!code ++]
+  } // [!code ++]
+
+  function popRecord() { // [!code ++]
+    dataState = dataState.slice(0, dataState.length - 1); // [!code ++]
+  } // [!code ++]
 </script>
 
-<div class="actions-wrapper">
-  <h2>Actions</h2>
-  <hr />
-  <button onclick={() => prependRecord()}> Prepend a Record </button>
-  <button onclick={() => popRecord()}> Pop a Record </button>
-</div>
+<div class="actions-wrapper"> // [!code ++]
+  <h2>Actions</h2> // [!code ++]
+  <hr /> // [!code ++]
+  <button onclick={() => prependRecord()}> Prepend a Record </button> // [!code ++]
+  <button onclick={() => popRecord()}> Pop a Record </button> // [!code ++]
+</div> // [!code ++]
 ```
+<!-- prettier-ignore-end -->
 
 > 🗒️ Note: The `dataState` variable must be reassigned after mutation
 > (`dataState = ...`) to ensure that the change is detected and triggers an

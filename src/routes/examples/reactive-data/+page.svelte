@@ -4,11 +4,7 @@
     import { createColumnHelper, createSvelteTable, getCoreRowModel } from '$lib/table/index';
     import type { PageData } from './$types';
 
-    type Props = {
-        data: PageData;
-    };
-
-    let { data }: Props = $props();
+    let { data }: PageProps<PageData> = $props();
     let { userProfiles } = data;
 
     // Create a column helper for the user profile data.
@@ -87,21 +83,3 @@
         {/each}
     </tbody>
 </table>
-
-<style>
-    table {
-        width: 100%;
-        max-width: 960px;
-        border-collapse: collapse;
-    }
-
-    th,
-    td {
-        border: 1px solid black;
-        padding: 8px;
-    }
-
-    .actions-wrapper {
-        margin-bottom: 1rem;
-    }
-</style>

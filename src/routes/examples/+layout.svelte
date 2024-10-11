@@ -39,7 +39,7 @@
         {@html readmeHtml}
     </div>
 
-    <hr />
+    <hr style="width:100%;" />
 
     <footer>
         <div>

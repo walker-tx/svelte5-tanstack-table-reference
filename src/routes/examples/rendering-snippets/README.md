@@ -21,7 +21,7 @@ Using Svelte's `{#snippet ...}` block, you can define a reusable snippet directl
 {/snippet}
 ```
 
-#### Script Snippet
+#### Script (Raw) Snippet
 
 Snippets can also be created programmatically in the script tag using the
 `createRawSnippet` function. This approach is useful when you do not need
@@ -100,7 +100,6 @@ After defining the columns, the next step is to set up the table using the
 specified data, columns, and core row model.
 
 <!-- prettier-ignore-start -->
-
 ```svelte
 <script lang="ts">
   import { createRawSnippet } from 'svelte'; 
