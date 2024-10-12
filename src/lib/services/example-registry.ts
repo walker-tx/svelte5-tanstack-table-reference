@@ -12,6 +12,12 @@ export default [
     githubPath: 'src/routes/examples/rendering-snippets'
   },
   {
+    id: 'rendering-components',
+    title: 'Rendering Components',
+    pathname: '/examples/rendering-components',
+    githubPath: 'src/routes/examples/rendering-components'
+  },
+  {
     id: 'reactive-data',
     title: 'Table with Reactive Data',
     pathname: '/examples/reactive-data',

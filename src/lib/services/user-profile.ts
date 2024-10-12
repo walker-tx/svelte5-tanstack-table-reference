@@ -6,6 +6,7 @@ export type UserProfile = {
   age: number;
   email: string;
   phone: string;
+  birthdate: string;
 };
 
 export class UserProfileService {
@@ -15,12 +16,15 @@ export class UserProfileService {
    * @returns {UserProfile} An object containing the following properties:
    */
   static getOne(): UserProfile {
+    const age = faker.number.int({ min: 18, max: 99 });
+
     return {
       id: faker.string.uuid(),
       name: faker.person.fullName(),
-      age: faker.number.int({ min: 18, max: 99 }),
+      age,
+      birthdate: faker.date.birthdate({ mode: 'age', min: age, max: age }).toUTCString(),
       email: faker.internet.email(),
-      phone: faker.phone.number()
+      phone: faker.phone.number({ style: 'national' })
     };
   }
 

@@ -3,6 +3,8 @@ code, snippets are a great way to encapsulate and reuse logic. In this example,
 we'll create snippets for rendering text in a `<strong>` tag and email addresses
 as clickable mailto links.
 
+**You should already know how to make a basic table before proceeding.**
+
 ### Defining Snippets
 
 Snippets can be defined in Svelte either directly in the markup or in the script
@@ -13,7 +15,9 @@ tag. Here, we use two methods to define our snippets:
 
 #### Markup Snippet
 
-Using Svelte's `{#snippet ...}` block, you can define a reusable snippet directly in your component's markup. For example, the snippet `strongSnippet` is defined to render its content in a `<strong>` tag:
+Using Svelte's `{#snippet ...}` block, you can define a reusable snippet
+directly in your component's markup. For example, the snippet `strongSnippet` is
+defined to render its content in a `<strong>` tag:
 
 ```svelte
 {#snippet strongSnippet(content: string)}
@@ -24,8 +28,8 @@ Using Svelte's `{#snippet ...}` block, you can define a reusable snippet directl
 #### Script (Raw) Snippet
 
 Snippets can also be created programmatically in the script tag using the
-`createRawSnippet` function. This approach is useful when you do not need
-to use a Svelte component in your snippet.
+`createRawSnippet` function. This approach is useful when you do not need to use
+a Svelte component in your snippet.
 
 ```svelte
 <script lang="ts">
@@ -40,7 +44,8 @@ to use a Svelte component in your snippet.
 </script>
 ```
 
-This `mailtoSnippet` generates a clickable email link, using the provided email address.
+This `mailtoSnippet` generates a clickable email link, using the provided email
+address.
 
 ### Column Definitions
 

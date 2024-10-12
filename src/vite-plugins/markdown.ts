@@ -1,4 +1,3 @@
-import { themes } from '../lib/highlight';
 import rehypeShiki from '@shikijs/rehype';
 import { transformerNotationDiff } from '@shikijs/transformers';
 import rehypeSanitize from 'rehype-sanitize';
@@ -7,6 +6,7 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import type { PluginOption } from 'vite';
+import { themes } from '../lib/highlight';
 
 async function convertMarkdownToHtml(raw: string) {
   const file = await unified()
