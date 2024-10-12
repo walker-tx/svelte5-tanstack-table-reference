@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { PUBLIC_GITHUB_REPO_URL } from '$env/static/public';
     import type { Snippet } from 'svelte';
     import type { LayoutData } from './$types';
 
@@ -15,17 +14,19 @@
 <div class="layout-wrapper">
     <nav>
         <div>
-            <a href="/">Home</a>
+            <a href="/" style="font-size:1em;font-weight:bold;">Tanstack Table v8 + Svelte 5</a>
         </div>
         <div>
-            <a href={PUBLIC_GITHUB_REPO_URL} target="_blank">GitHub Repo</a>
+            <a href={__GITHUB_URL__} target="_blank">GitHub Repo</a>
         </div>
     </nav>
 
     <header>
         <h1>{currentExample.title}</h1>
         <hr style="width:100%" />
-        <a href="{PUBLIC_GITHUB_REPO_URL}/tree/main/{currentExample.githubPath}">Link to GitHub</a>
+        <a href="{__GITHUB_URL__}/tree/main/{currentExample.githubPath}">
+            Link to Example Source
+        </a>
     </header>
 
     <div class="content-wrapper">

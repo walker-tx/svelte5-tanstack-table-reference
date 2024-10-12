@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { PUBLIC_GITHUB_REPO_URL } from '$env/static/public';
     import exampleRegistry from '$lib/services/example-registry';
     import { createSvelteTable, renderSnippet } from '$lib/table';
     import FlexRender from '$lib/table/flex-render.svelte';
@@ -26,7 +25,7 @@
         colHelp.accessor('githubPath', {
             header: 'GitHub',
             cell({ cell }) {
-                const href = `${PUBLIC_GITHUB_REPO_URL}/tree/main/${cell.getValue()}`;
+                const href = `${__GITHUB_URL__}/tree/main/${cell.getValue()}`;
                 return renderSnippet(linkCell, { href, text: 'Link to GitHub' });
             }
         })
@@ -41,7 +40,7 @@
 
 <h1>Tanstack Table v8 + Svelte 5 Reference</h1>
 
-<a href={PUBLIC_GITHUB_REPO_URL}>GitHub Repository</a>
+<a href={__GITHUB_URL__}>GitHub Repository</a>
 
 <hr />
 
@@ -56,8 +55,8 @@
 </p>
 
 <p>
-    You can use this site and its repository on <a href={PUBLIC_GITHUB_REPO_URL}>GitHub</a> as a reference
-    for implementing and using your own adapter.
+    You can use this site and its repository on <a href={__GITHUB_URL__}>GitHub</a> as a reference for
+    implementing and using your own adapter.
 </p>
 
 <h2>Examples</h2>
@@ -113,7 +112,7 @@
 <h3>How can I get help?</h3>
 
 <p>
-    You can ask questions by submitting an issue in the <a href={PUBLIC_GITHUB_REPO_URL}
+    You can ask questions by submitting an issue in the <a href={__GITHUB_URL__}
         >GitHub repository</a
     >. Please try and figure things out on your own first, though.
 </p>

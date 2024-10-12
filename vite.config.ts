@@ -1,54 +1,11 @@
-import rehypeShiki from '@shikijs/rehype';
 import { sveltekit } from '@sveltejs/kit/vite';
-import rehypeSanitize from 'rehype-sanitize';
-import rehypeStringify from 'rehype-stringify';
-import remarkParse from 'remark-parse';
-import remarkRehype from 'remark-rehype';
-import { unified } from 'unified';
 import { defineConfig } from 'vite';
-import { themes } from './src/lib/highlight';
-import { transformerNotationDiff } from '@shikijs/transformers';
-
-async function convertMarkdownToHtml(raw: string) {
-  const file = await unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypeSanitize)
-    .use(rehypeShiki, {
-      themes,
-      transformers: [transformerNotationDiff()]
-    })
-    .use(rehypeStringify)
-    .process(raw);
-
-  return String(file);
-}
+import pkg from './package.json' assert { type: 'json' };
+import markdown from './src/vite-plugins/markdown';
 
 export default defineConfig({
-  plugins: [
-    sveltekit(),
-    {
-      name: 'markdown-parser',
-      async transform(raw, id) {
-        if (id.endsWith('.md')) {
-          try {
-            const html = await convertMarkdownToHtml(raw);
-            return `export default ${JSON.stringify(html)}`;
-          } catch (e) {
-            this.error(e as Error);
-          }
-        }
-      },
-      async handleHotUpdate(ctx) {
-        if (ctx.file.endsWith('.md')) {
-          const defaultRead = ctx.read;
-          ctx.read = async function () {
-            const raw = await defaultRead();
-            const html = await convertMarkdownToHtml(raw);
-            return `export default ${JSON.stringify(html)}`;
-          };
-        }
-      }
-    }
-  ]
+  plugins: [sveltekit(), markdown],
+  define: {
+    __GITHUB_URL__: `"${pkg.homepage}"`
+  }
 });

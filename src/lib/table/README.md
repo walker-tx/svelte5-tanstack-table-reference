@@ -76,7 +76,7 @@ If you want to render a component in a cell or header, you can use the
     colHelp.accessor('githubPath', {
       header: 'GitHub',
       cell({ cell }) {
-        const href = `${PUBLIC_GITHUB_REPO_URL}/tree/main/${cell.getValue()}`;
+        const href = `${__GITHUB_URL__}/tree/main/${cell.getValue()}`;
         return renderSnippet(linkCell, { href, text: 'Link to GitHub' });
       }
     })

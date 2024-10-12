@@ -18,6 +18,9 @@ declare global {
   declare module '*.md' {
     export default string;
   }
+
+  // Defined in vite.config.ts under "define"
+  declare const __GITHUB_URL__: string;
 }
 
 export {};
