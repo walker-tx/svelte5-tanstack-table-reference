@@ -11,6 +11,12 @@
     const { currentExample, nextExample, previousExample, readmeHtml } = $derived(data);
 </script>
 
+<svelte:head>
+    <title>
+        {currentExample.title} | Tanstack Table v8 + Svelte 5 Reference
+    </title>
+</svelte:head>
+
 <div class="layout-wrapper">
     <nav>
         <div>

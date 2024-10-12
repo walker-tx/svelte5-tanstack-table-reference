@@ -9,6 +9,10 @@
     let { children } = $props();
 </script>
 
+<svelte:head>
+    <title>Tanstack Table v8 + Svelte 5 Reference</title>
+</svelte:head>
+
 {#if browser}
     <ModeWatcher />
 {/if}
