@@ -68,10 +68,10 @@ const registry: ExampleRegistryItem[] = [
     ]
   },
   {
-    id: 'select',
-    title: 'Table with Select',
-    pathname: '/examples/select',
-    githubPath: 'src/routes/examples/select',
+    id: 'row-selection',
+    title: 'Row Selection',
+    pathname: '/examples/row-selection',
+    githubPath: 'src/routes/examples/row-selection',
     links: [
       {
         title: 'Row Selection API Reference',
