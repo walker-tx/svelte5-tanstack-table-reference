@@ -1,5 +1,6 @@
 <script lang="ts">
     import Highlight from '$lib/components/highlight.svelte';
+    import ModeButton from '$lib/components/mode-button.svelte';
     import exampleRegistry from '$lib/services/example-registry';
     import { createSvelteTable, renderSnippet } from '$lib/table';
     import FlexRender from '$lib/table/flex-render.svelte';
@@ -41,12 +42,20 @@
     const tableDirectoryUrl = __GITHUB_URL__ + '/tree/main/src/lib/table';
 </script>
 
-<h1 style="margin-bottom: 0">Tanstack Table v8 + Svelte 5</h1>
-<p style="font-size: small; margin: 0">
-    A reference for making awesome tables using TanStack Table and Svelte 5. Right now.
-</p>
-
-<a href={__GITHUB_URL__} style="font-size: medium;"> GitHub Repository </a>
+<header>
+    <div>
+        <h1 style="margin-bottom: 0">Tanstack Table v8 + Svelte 5</h1>
+        <p style="font-size: small; margin: 0">
+            A reference for making awesome tables using TanStack Table and Svelte 5. Right now.
+        </p>
+        <a href={__GITHUB_URL__} style="font-size: medium;" target="_blank" rel="nofollow">
+            GitHub Repository
+        </a>
+    </div>
+    <div>
+        <ModeButton />
+    </div>
+</header>
 
 <hr />
 
@@ -173,6 +182,12 @@
 </footer>
 
 <style>
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     h2 {
         margin-top: 2rem;
     }

@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
     import type { LayoutData } from './$types';
+    import ModeButton from '$lib/components/mode-button.svelte';
 
     type Props = {
         data: LayoutData;
@@ -19,11 +20,16 @@
 
 <div class="layout-wrapper">
     <nav>
-        <div>
-            <a href="/" style="font-size:large;font-weight:bold;">Tanstack Table v8 + Svelte 5</a>
+        <div class="nav-title">
+            <a href="/" style="">
+                <h4>Tanstack Table v8 + Svelte 5</h4>
+            </a>
+            <a style="font-size:medium" href={__GITHUB_URL__} target="_blank" rel="nofollow"
+                >GitHub Repo</a
+            >
         </div>
-        <div>
-            <a href={__GITHUB_URL__} target="_blank" rel="nofollow">GitHub Repo</a>
+        <div style="display:flex;align-items:center;">
+            <ModeButton />
         </div>
     </nav>
 
@@ -91,6 +97,10 @@
         border-bottom: 1px solid #ccc;
         display: flex;
         justify-content: space-between;
+    }
+
+    nav .nav-title h4 {
+        margin: 0px;
     }
 
     footer {
