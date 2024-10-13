@@ -1,4 +1,5 @@
 <script lang="ts">
+    import Highlight from '$lib/components/highlight.svelte';
     import exampleRegistry from '$lib/services/example-registry';
     import { createSvelteTable, renderSnippet } from '$lib/table';
     import FlexRender from '$lib/table/flex-render.svelte';
@@ -36,11 +37,16 @@
         columns: columnDefs,
         getCoreRowModel: getCoreRowModel()
     });
+
+    const tableDirectoryUrl = __GITHUB_URL__ + '/tree/main/src/lib/table';
 </script>
 
-<h1>Tanstack Table v8 + Svelte 5 Reference</h1>
+<h1 style="margin-bottom: 0">Tanstack Table v8 + Svelte 5</h1>
+<p style="font-size: small; margin: 0">
+    A reference for making awesome tables using TanStack Table and Svelte 5. Right now.
+</p>
 
-<a href={__GITHUB_URL__}>GitHub Repository</a>
+<a href={__GITHUB_URL__} style="font-size: medium;"> GitHub Repository </a>
 
 <hr />
 
@@ -50,14 +56,45 @@
 
 <p>
     The <code>@tanstack/table-svelte</code> adapter doesn't support Svelte 5 because it uses the
-    <code>svelte/internal</code> package, which is being deprecated. This project is a reference for
-    how to implement TanStack Table v8 with Svelte 5.
+    <code>svelte/internal</code> package, which is being deprecated. TanStack Table's official Svelte
+    5 adapter is slated to be released alongside TanStack Table v9, which is still in alpha. As a result,
+    the core library is in a state of flux, and the Svelte adapter is not yet stable.
 </p>
 
 <p>
-    You can use this site and its repository on <a href={__GITHUB_URL__}>GitHub</a> as a reference for
-    implementing and using your own adapter.
+    This site, and its repository on <a href={__GITHUB_URL__}>GitHub</a>, were made to be a
+    reference to help developers implement their own adapter for TanStack Table v8 (which is stable)
+    and Svelte 5. Thus, isolating your work from any volatility in the <code>alpha</code> branch of the
+    core library.
 </p>
+
+<p>Treat this reference as a cookbook, full of recipes.</p>
+
+<h2>Project Setup</h2>
+
+<hr />
+
+<p>
+    To get started, you'll need to install the core library and the Svelte adapter. You can do this
+    by running the following command:
+</p>
+
+<Highlight lang="shell" code="pnpm i -D @tanstack/table-core" />
+
+<p>
+    Then, you'll need to copy the contents of the <code>src/lib/table</code> directory into your project
+    directory.
+</p>
+
+<p>
+    You can find those files <a href={tableDirectoryUrl}>here</a>, or grab a zip of that directory
+    by
+    <a href="https://download-directory.github.io/?url={encodeURIComponent(tableDirectoryUrl)}"
+        >clicking here</a
+    >.
+</p>
+
+<p>Now, you can get cooking!</p>
 
 <h2>Examples</h2>
 
@@ -101,30 +138,46 @@
 <h3>Why not just use the alpha (v9) branch?</h3>
 
 <p>
-    Alpha is under development. It changes very frequently, and therefore breaks very frequently.
-    While things are so volatile, maintainers and contributors can't be expected to support it.
+    TanStack Table v9 is currently under development - it's in alpha. It changes very frequently,
+    and therefore breaks very frequently. While things are so volatile, maintainers and contributors
+    can't be expected to support it.
 </p>
 
 <p>
-    This applies to both <code>@tanstack/table-core</code> and <code>@tanstack/table-svelte</code>.
+    This volatility applies to both <code>@tanstack/table-core</code> and
+    <code>@tanstack/table-svelte</code>.
 </p>
 
-<h3>How can I get help?</h3>
+<h3>How can I share feedback, or get help?</h3>
 
 <p>
-    You can ask questions by submitting an issue in the <a href={__GITHUB_URL__}
-        >GitHub repository</a
-    >. Please try and figure things out on your own first, though.
+    Submit an issue on GitHub if you'd like to share some feedback or need help. All feedback will
+    help in the maintenance of this project, in addition to the development of the official TanStack
+    Table adapter for Svelte 5.
 </p>
 
 <p style="font-weight: bold;">
-    Please also DO NOT submit an issue that you have with this project on the official TanStack
-    Table repository. ONLY submit an issue there if you're sure that it's a problem with their
+    Also, please DO NOT submit an issue that you have with this project on the official TanStack
+    Table repository. ONLY submit an issue there if you're sure that it's a problem with the core
     library, and not this project or your own implementation.
 </p>
+
+<hr />
+
+<footer style="font-size:small">
+    Developed and maintained by <a
+        href="https://github.com/walker-tx"
+        target="_blank"
+        rel="nofollow">walker-tx</a
+    >. <a href="https://walkertx.dev">Hire me</a>.
+</footer>
 
 <style>
     h2 {
         margin-top: 2rem;
+    }
+
+    footer {
+        padding: 2rem 0px;
     }
 </style>

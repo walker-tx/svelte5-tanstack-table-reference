@@ -20,19 +20,33 @@
 <div class="layout-wrapper">
     <nav>
         <div>
-            <a href="/" style="font-size:1em;font-weight:bold;">Tanstack Table v8 + Svelte 5</a>
+            <a href="/" style="font-size:large;font-weight:bold;">Tanstack Table v8 + Svelte 5</a>
         </div>
         <div>
-            <a href={__GITHUB_URL__} target="_blank">GitHub Repo</a>
+            <a href={__GITHUB_URL__} target="_blank" rel="nofollow">GitHub Repo</a>
         </div>
     </nav>
 
     <header>
         <h1>{currentExample.title}</h1>
         <hr style="width:100%" />
-        <a href="{__GITHUB_URL__}/tree/main/{currentExample.githubPath}">
-            Link to Example Source
-        </a>
+        <h6>Useful Links</h6>
+        <ul class="links-list">
+            <li>
+                <a
+                    href="{__GITHUB_URL__}/tree/main/{currentExample.githubPath}"
+                    target="_blank"
+                    rel="nofollow"
+                >
+                    Page Source
+                </a>
+            </li>
+            {#each currentExample?.links ?? [] as { href, title }}
+                <li>
+                    <a {href}>{title}</a>
+                </li>
+            {/each}
+        </ul>
     </header>
 
     <div class="content-wrapper">
@@ -49,16 +63,25 @@
     <hr style="width:100%;" />
 
     <footer>
-        <div>
-            {#if previousExample}
-                <a href={previousExample.pathname}>Previous: {previousExample.title}</a>
-            {/if}
+        <div class="footer-links">
+            <div>
+                {#if previousExample}
+                    <a href={previousExample.pathname}>Previous: {previousExample.title}</a>
+                {/if}
+            </div>
+            <div>
+                {#if nextExample}
+                    <a href={nextExample.pathname}>Next: {nextExample.title}</a>
+                {/if}
+            </div>
         </div>
-        <div>
-            {#if nextExample}
-                <a href={nextExample.pathname}>Next: {nextExample.title}</a>
-            {/if}
-        </div>
+        <p style="font-size:small;margin-top:1em">
+            Developed and maintained by <a
+                href="https://github.com/walker-tx"
+                target="_blank"
+                rel="nofollow">walker-tx</a
+            >.
+        </p>
     </footer>
 </div>
 
@@ -71,9 +94,12 @@
     }
 
     footer {
+        padding: 2rem 0px;
+    }
+
+    .footer-links {
         display: flex;
         justify-content: space-between;
-        padding: 2rem 0px;
     }
 
     .layout-wrapper {
@@ -84,5 +110,13 @@
 
     .content-wrapper {
         flex-grow: 1;
+    }
+
+    .links-list {
+        list-style-type: none;
+        padding: 0px;
+        display: flex;
+        gap: 1em;
+        font-size: medium;
     }
 </style>
