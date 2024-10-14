@@ -24,6 +24,13 @@ const registry: ExampleRegistryItem[] = [
     ]
   },
   {
+    id: 'grid-view',
+    title: 'Grid View',
+    pathname: '/examples/grid-view',
+    githubPath: 'src/routes/examples/grid-view',
+    links: []
+  },
+  {
     id: 'rendering-snippets',
     title: 'Rendering Snippets',
     pathname: '/examples/rendering-snippets',
@@ -57,7 +64,7 @@ const registry: ExampleRegistryItem[] = [
   },
   {
     id: 'reactive-data',
-    title: 'Table with Reactive Data',
+    title: 'Reactive Data',
     pathname: '/examples/reactive-data',
     githubPath: 'src/routes/examples/reactive-data',
     links: [

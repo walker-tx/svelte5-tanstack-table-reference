@@ -1,6 +1,6 @@
 <script lang="ts">
     import Highlight from '$lib/components/highlight.svelte';
-    import * as UserProfileService from '$lib/services/user-profile';
+    import type { UserProfile } from '$lib/services/user-profile';
     import FlexRender from '$lib/table/flex-render.svelte';
     import {
         createColumnHelper,
@@ -18,7 +18,7 @@
 
     // Create a column helper for the user profile data.
     // It's not necessary, but it helps with type stuff.
-    const colHelp = createColumnHelper<UserProfileService.UserProfile>();
+    const colHelp = createColumnHelper<UserProfile>();
 
     // Define the columns using the column helper.
     const columnDefs = [

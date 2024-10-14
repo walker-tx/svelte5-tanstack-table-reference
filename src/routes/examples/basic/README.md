@@ -66,7 +66,8 @@ specified data, columns, and core row model.
   const colHelp = createColumnHelper<UserProfile>();
 
   const columnDefs = [
-      colHelp.accessor('age', { header: 'Age' }),
+    colHelp.accessor('name', { header: 'Name' }),
+    colHelp.accessor('age', { header: 'Age' }),
     colHelp.accessor('email', { header: 'Email' }),
     colHelp.accessor('phone', { header: 'Phone' })
   ];
