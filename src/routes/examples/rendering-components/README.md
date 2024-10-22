@@ -91,7 +91,7 @@ definitions:
   const columnDefs = [ 
     colHelp.accessor('name', { header: 'Name' }), 
     colHelp.accessor('age', { header: 'Age' }), 
-    colHelp.accessor('phone', { header: 'Phone' }) 
+    colHelp.accessor('phone', { header: 'Phone' }),
     colHelp.accessor('birthdate', { 
         header: 'Birthday Countdown', 
         // Use renderComponent to render a Svelte component in a cell.
@@ -125,7 +125,7 @@ specified data, columns, and core row model.
   const columnDefs = [ 
     colHelp.accessor('name', { header: 'Name' }), 
     colHelp.accessor('age', { header: 'Age' }), 
-    colHelp.accessor('phone', { header: 'Phone' }) 
+    colHelp.accessor('phone', { header: 'Phone' }),
     colHelp.accessor('birthdate', { 
         header: 'Birthday Countdown', 
         cell: ({ cell }) => renderComponent(Countdown, { value: cell.getValue() }) 

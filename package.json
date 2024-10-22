@@ -18,8 +18,8 @@
     "@shikijs/rehype": "^1.22.0",
     "@shikijs/transformers": "^1.22.0",
     "@sveltejs/adapter-static": "^3.0.5",
-    "@sveltejs/kit": "^2.0.0",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
+    "@sveltejs/kit": "^2.7.2",
+    "@sveltejs/vite-plugin-svelte": "4.0.0-next.8",
     "@tanstack/table-core": "^8.20.5",
     "@types/eslint": "^9.6.0",
     "eslint": "^9.0.0",
@@ -37,16 +37,12 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
     "shiki": "^1.22.0",
-    "svelte": "5.0.0-next.264",
-    "svelte-check": "^4.0.0",
+    "svelte": "5.0.5",
+    "svelte-check": "^4.0.5",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.0.0",
     "unified": "^11.0.5",
     "vite": "^5.0.3"
   },
-  "type": "module",
-  "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
-  }
+  "type": "module"
 }

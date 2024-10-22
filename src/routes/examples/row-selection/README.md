@@ -163,14 +163,14 @@ When setting up the table, it is essential to make the `rowSelection` state a
 getter to ensure reactivity. This way, the table automatically updates when the
 selection state changes.
 
+<!-- prettier-ignore-start -->
 ```svelte
 <script lang="ts">
   import {
     type RowSelectionState,
     type Updater,
     createColumnHelper,
-    renderComponent // [!code --]
-    renderComponent, // [!code ++]
+    renderComponent,
     createSvelteTable, // [!code ++]
     getCoreRowModel // [!code ++]
   } from '$lib/table';
@@ -221,6 +221,7 @@ selection state changes.
   }); // [!code ++]
 </script>
 ```
+<!-- prettier-ignore-end -->
 
 ### Rendering the Table in the Markup
 
