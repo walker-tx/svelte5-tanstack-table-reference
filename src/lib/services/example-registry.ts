@@ -85,6 +85,18 @@ const registry: ExampleRegistryItem[] = [
         href: 'https://tanstack.com/table/latest/docs/api/features/row-selection'
       }
     ]
+  },
+  {
+    id: 'row-expansion',
+    title: 'Row Expansion',
+    pathname: '/examples/row-expansion',
+    githubPath: 'src/routes/examples/row-expansion',
+    links: [
+      {
+        title: 'Row Expansion API Reference',
+        href: 'https://tanstack.com/table/latest/docs/api/features/expanding'
+      }
+    ]
   }
 ];
 

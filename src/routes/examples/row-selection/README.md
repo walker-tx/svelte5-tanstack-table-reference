@@ -72,7 +72,7 @@ reactive signal that tracks which rows are selected.
 
 ```svelte
 <script lang="ts">
-  import { type RowSelectionState } from '$lib/table'; // [!code --]
+  import { createColumnHelper, renderComponent } from '$lib/table'; // [!code --]
   import { type RowSelectionState, createColumnHelper, renderComponent } from '$lib/table'; // [!code ++]
   import TableCheckbox from './_components/table-checkbox.svelte';
   import { type UserProfile } from '$lib/services/user-profile';
