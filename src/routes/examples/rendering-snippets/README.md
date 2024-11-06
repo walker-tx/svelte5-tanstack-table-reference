@@ -38,7 +38,14 @@ a Svelte component in your snippet.
   const mailtoSnippet = createRawSnippet<[string]>((email) => {
     const emailAddress = email();
     return {
-      render: () => `<a href="mailto:${emailAddress}">${emailAddress}</a>`
+      render: () => `<a href="mailto:${emailAddress}">${emailAddress}</a>`,
+      // Optional - Setup function to run when the snippet is first rendered
+      setup: () => {
+        // Example of using a Svelte effect to implement reactivity
+        $effect(() => {
+          node.textContent = email();
+        });
+      }
     };
   });
 </script>
