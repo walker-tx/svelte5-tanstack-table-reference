@@ -4,6 +4,7 @@ import rehypeSanitize from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
+import rehypeSlug from 'rehype-slug';
 import { unified } from 'unified';
 import type { PluginOption } from 'vite';
 import { themes } from '../lib/highlight';
@@ -17,6 +18,7 @@ async function convertMarkdownToHtml(raw: string) {
       themes,
       transformers: [transformerNotationDiff()]
     })
+    .use(rehypeSlug)
     .use(rehypeStringify)
     .process(raw);
 
